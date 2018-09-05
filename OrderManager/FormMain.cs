@@ -13,6 +13,7 @@ namespace OrderManager
 	public partial class FormMain : Form
 	{
 		Ctrls.OrderList ctrl_OrderList = new Ctrls.OrderList() { Dock = DockStyle.Fill };
+		Ctrls.Order ctrl_Order = new Ctrls.Order() { Dock = DockStyle.Fill };
 
 		public FormMain()
 		{
@@ -22,7 +23,7 @@ namespace OrderManager
 		private void FormMain_Load(object sender, EventArgs e)
 		{
 			split_Layot.Panel2.Hide();
-			split_Layot.Panel1.Controls.Add(ctrl_OrderList);
+			split_Layot.Panel1.Controls.Add(ctrl_Order);
 		}
 	}
 }
