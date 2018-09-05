@@ -17,14 +17,16 @@ namespace OrderManager.Lib
 	/// </summary>
 	public class PrintHelper
 	{
+		private const string FamilyName = "微软雅黑";
+		private const int EMSize = 9;
+
 		DataGridView dgv;
 
 		public string Title { get { return "成都明辉顺达机电设备送货单"; } }
-		public string Tel { get { return "TEL：028-66157317  13981844820  183822602909"; } }
-		public string Address { get { return " 金府路万贯机电城12大厅7号"; } }
-		public string CompanyDesc { get { return "公司主营：配电箱 成套 电器电线 强磁铁 电热水箱 烘房 烤房 电炉 烘箱 蒸饭机 开水器  电加热管 电阻丝 高温线 温控仪 热电偶 压力表 压力变送器 液位变送器 电磁流量计 涡轮流量计"; } }
+		public string Tel { get { return "TEL：028-66157317 13981844820 183822602909"; } }
+		public string Address { get { return " 地址：金府路万贯机电城12大厅7号"; } }
+		public string CompanyDesc { get { return "公司主营：配电箱 成套 电器电线 强磁铁 磁棒 除铁器 橡胶磁 电热水箱 烘房 烤房 电炉 烘箱 蒸饭机 开水器 电加热管 电阻丝 高温线 温控仪 热电偶 压力表 压力变送器 液位变送器 电磁流量计 涡轮流量计"; } }
 		public string Signature { get { return "客户签字"; } }
-		public string OrderTime { get { return string.Format("HH:mm:ss", DateTime.Now); } }
 
 		public string OrderNo { get { return " AS2011-"; } }
 
@@ -33,6 +35,10 @@ namespace OrderManager.Lib
 		public string TextTelephone { get; set; }
 
 		public string TextDeliveryDate { get; set; }
+
+		public string TextAmtWords { get; set; }
+
+		public string TextAmtFigures { get; set; }
 
 		/// <summary>
 		/// 客户姓名
@@ -48,6 +54,10 @@ namespace OrderManager.Lib
 		/// 送货日期
 		/// </summary>
 		public string DeliveryDate { get; set; }
+
+		public string AmtWords { get; set; }
+
+		public string AmtFigures { get; set; }
 
 		/// <summary>
 		/// 打印DataGridView
@@ -89,7 +99,7 @@ namespace OrderManager.Lib
 			float pagerWidth = e.MarginBounds.Width;
 
 			#region 标题
-			textFont = new Font("微软雅黑", 18, FontStyle.Bold);
+			textFont = new Font(FamilyName, 14);
 			textSize = e.Graphics.MeasureString(Title, textFont, e.MarginBounds.Width);
 			//x坐标
 			x = Convert.ToInt32((pagerWidth - textSize.Width) / 2 + e.MarginBounds.Left);
@@ -99,30 +109,10 @@ namespace OrderManager.Lib
 			e.Graphics.DrawString(Title, textFont, Brushes.Black, x, y);
 			#endregion
 
-			y += (int)textSize.Height;
-
-			#region 电话
-			textFont = new Font("微软雅黑", 12);
-			textSize = e.Graphics.MeasureString(Tel, textFont, e.MarginBounds.Width);
-			//x坐标
-			x = e.MarginBounds.Left;
-			//画标题
-			e.Graphics.DrawString(Tel, textFont, Brushes.Black, x, y);
-			#endregion
-
-			#region 地址
-			textFont = new Font("微软雅黑", 12);
-			textSize = e.Graphics.MeasureString(Address, textFont, e.MarginBounds.Width);
-			//x坐标
-			x = Convert.ToInt32(e.MarginBounds.Right - textSize.Width);
-			//画标题
-			e.Graphics.DrawString(Address, textFont, Brushes.Black, x, y);
-			#endregion
-
-			y += (int)textSize.Height;
+			y += (int)textSize.Height + 2;
 
 			#region 客户姓名
-			textFont = new Font("微软雅黑", 12);
+			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextCustomerName, CustomerName), textFont, e.MarginBounds.Width);
 			//x坐标
 			x = e.MarginBounds.Left;
@@ -131,7 +121,7 @@ namespace OrderManager.Lib
 			#endregion
 
 			#region 联系电话
-			textFont = new Font("微软雅黑", 12);
+			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextTelephone, Telephone), textFont, e.MarginBounds.Width);
 			//x坐标
 			x = Convert.ToInt32((pagerWidth - textSize.Width) / 2 + e.MarginBounds.Left);
@@ -142,7 +132,7 @@ namespace OrderManager.Lib
 			#endregion
 
 			#region 送货日期
-			textFont = new Font("微软雅黑", 12);
+			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextDeliveryDate, DeliveryDate), textFont, e.MarginBounds.Width);
 			//x坐标
 			x = Convert.ToInt32(e.MarginBounds.Right - textSize.Width);
@@ -152,8 +142,9 @@ namespace OrderManager.Lib
 			e.Graphics.DrawString(string.Format("{0}{1}", TextDeliveryDate, DeliveryDate), textFont, Brushes.Black, x, y);
 			#endregion
 
-			y += (int)textSize.Height;
+			y += (int)textSize.Height + 2;
 
+			#region 表格
 			//表头高度
 			int headerHeight = 0;
 			//纵轴上 内容与线的距离
@@ -193,8 +184,8 @@ namespace OrderManager.Lib
 				//内容居中要加的高度
 				float cenderHeight = (headerHeight + padding - e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Height) / 2;
 				if (cenderHeight < 0) cenderHeight = 0;
-				//画背景
-				e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), new Rectangle(x, y, columnWidth, headerHeight));
+				////画背景
+				//e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), new Rectangle(x, y, columnWidth, headerHeight));
 				//画边框
 				e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, columnWidth, headerHeight));
 				////画上边线
@@ -215,12 +206,15 @@ namespace OrderManager.Lib
 			x = e.MarginBounds.Left;
 			y += headerHeight;
 			int rowIndex = 0;
+			int rowHeight = 0;
+			int colWidth = 0;
+			int colIndex = 0;
+			Font font = null;
 			while (rowIndex < dgv.Rows.Count)
 			{
 				DataGridViewRow row = dgv.Rows[rowIndex];
 				if (row.Visible)
 				{
-					int rowHeight = 0;
 					foreach (DataGridViewCell cell in row.Cells)
 					{
 						DataGridViewColumn column = dgv.Columns[cell.ColumnIndex];
@@ -229,8 +223,10 @@ namespace OrderManager.Lib
 						int temp = (int)e.Graphics.MeasureString(cell.Value.ToString(), column.InheritedStyle.Font, tmpWidth).Height + 2 * padding;
 						if (temp > rowHeight) rowHeight = temp;
 					}
+					colIndex = 0;
 					foreach (DataGridViewCell cell in row.Cells)
 					{
+						font = cell.InheritedStyle.Font;
 						DataGridViewColumn column = dgv.Columns[cell.ColumnIndex];
 						if (!column.Visible) continue;
 						int columnWidth = (int)(Math.Floor((double)column.Width / (double)columnsWidth * (double)pagerWidth));
@@ -256,22 +252,66 @@ namespace OrderManager.Lib
 							e.Graphics.DrawString(cell.Value.ToString(), column.InheritedStyle.Font, new SolidBrush(cell.InheritedStyle.ForeColor), new RectangleF(x + cenderWidth, y + cenderHeight, columnWidth, rowHeight));
 						}
 						x += columnWidth;
+						if (colIndex < 4)
+						{
+							colWidth += columnWidth;
+						}
+						colIndex++;
 					}
 					x = e.MarginBounds.Left;
 					y += rowHeight;
-					//打印下一页
-					if (y + rowHeight > e.MarginBounds.Bottom)
-					{
-						e.HasMorePages = true;
-						break;
-					}
 				}
 				rowIndex++;
 			}
+			//画汇总
+			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, colWidth, rowHeight));
+			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x + colWidth, y, colWidth, rowHeight));
+			#endregion
+
+			#region 大写金额
+			textFont = font;
+			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, e.MarginBounds.Width);
+			//x坐标
+			x = e.MarginBounds.Left;
+			//画标题
+			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, Brushes.Black, x, y);
+			#endregion
+
+			#region 小写金额
+			textFont = font;
+			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, e.MarginBounds.Width);
+			//x坐标
+			x = (e.MarginBounds.Width + (int)textSize.Width) / 2;
+			//画标题
+			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, Brushes.Black, x, y);
+			#endregion
+
+			y += rowHeight + 2;
+
+			#region 电话
+			textFont = new Font(FamilyName, EMSize);
+			textSize = e.Graphics.MeasureString(Tel, textFont, e.MarginBounds.Width);
+			//x坐标
+			x = e.MarginBounds.Left;
+			//画标题
+			e.Graphics.DrawString(Tel, textFont, Brushes.Black, x, y);
+			#endregion
+
+			#region 地址
+			textFont = new Font(FamilyName, EMSize);
+			textSize = e.Graphics.MeasureString(Address, textFont, e.MarginBounds.Width);
+			//x坐标
+			x = Convert.ToInt32(e.MarginBounds.Right - textSize.Width);
+			//画标题
+			e.Graphics.DrawString(Address, textFont, Brushes.Black, x, y);
+			#endregion
+
+			y += (int)textSize.Height + 2;
 
 			#region 公司描述
-			textFont = new Font("微软雅黑", 12);
+			textFont = new Font(FamilyName, EMSize);
 			//x坐标
+			x = e.MarginBounds.Left;
 			StringFormat strformat = new StringFormat() { LineAlignment = StringAlignment.Near, FormatFlags = StringFormatFlags.LineLimit };//左对齐、自动换行
 			Rectangle rectangle = new Rectangle(x, y, e.MarginBounds.Width, e.MarginBounds.Height);
 			textSize = e.Graphics.MeasureString(CompanyDesc, textFont, e.MarginBounds.Width, strformat);
@@ -279,10 +319,10 @@ namespace OrderManager.Lib
 			e.Graphics.DrawString(CompanyDesc, textFont, Brushes.Black, rectangle, strformat);
 			#endregion
 
-			y += (int)textSize.Height;
+			y += (int)textSize.Height + 2;
 
 			#region 客户签字
-			textFont = new Font("微软雅黑", 16);
+			textFont = new Font(FamilyName, 12);
 			textSize = e.Graphics.MeasureString(string.Format("{0}名字名字名字名字名字", Signature), textFont, e.MarginBounds.Width);
 			//x坐标
 			x = e.MarginBounds.Right - (int)textSize.Width;

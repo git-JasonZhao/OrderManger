@@ -22,8 +22,11 @@ namespace OrderManager
 
 		private void FormMain_Load(object sender, EventArgs e)
 		{
-			split_Layot.Panel2.Hide();
-			split_Layot.Panel1.Controls.Add(ctrl_Order);
+			this.Controls.Clear();
+			this.Controls.Add(ctrl_Order);
+
+			//split_Layot.Panel2.Hide();
+			//split_Layot.Panel1.Controls.Add(ctrl_Order);
 		}
 	}
 }
