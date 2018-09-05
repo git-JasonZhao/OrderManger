@@ -1,0 +1,12 @@
+bin
+obj
+packages
+*.dll
+*.exe
+*.pdb
+.suo
+.vs
+Web.Debug.config
+InstallUtil.InstallLog
+*.csproj.user
+*.pubxml.user
