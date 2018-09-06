@@ -63,6 +63,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lib\AmtHelper.cs" />
     <Compile Include="Lib\DataHelper.cs" />
     <Compile Include="Lib\PrintHelper.cs" />
     <Compile Include="OrderMangerDataSet.Designer.cs">

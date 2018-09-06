@@ -30,6 +30,14 @@
 		{
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.dgv_OrderProd = new System.Windows.Forms.DataGridView();
+			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.产品名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.单位 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.备注 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.lbl_CustomerName = new System.Windows.Forms.Label();
 			this.txt_CustomerName = new System.Windows.Forms.TextBox();
 			this.txt_Telephone = new System.Windows.Forms.TextBox();
@@ -42,14 +50,6 @@
 			this.lbl_AmtWords = new System.Windows.Forms.Label();
 			this.lbl_TextAmtFigures = new System.Windows.Forms.Label();
 			this.lbl_AmtFigures = new System.Windows.Forms.Label();
-			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.产品名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.单位 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.备注 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -79,9 +79,53 @@
 			this.dgv_OrderProd.Location = new System.Drawing.Point(0, 33);
 			this.dgv_OrderProd.Name = "dgv_OrderProd";
 			this.dgv_OrderProd.RowTemplate.Height = 23;
-			this.dgv_OrderProd.Size = new System.Drawing.Size(854, 467);
+			this.dgv_OrderProd.Size = new System.Drawing.Size(850, 467);
 			this.dgv_OrderProd.TabIndex = 0;
-			this.dgv_OrderProd.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_OrderProd_RowLeave);
+			this.dgv_OrderProd.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_OrderProd_RowsRemoved);
+			this.dgv_OrderProd.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_OrderProd_RowValidated);
+			// 
+			// SeqNo
+			// 
+			this.SeqNo.DataPropertyName = "SeqNo";
+			this.SeqNo.HeaderText = "序号";
+			this.SeqNo.Name = "SeqNo";
+			this.SeqNo.ReadOnly = true;
+			// 
+			// 产品名称
+			// 
+			this.产品名称.HeaderText = "产品名称";
+			this.产品名称.Name = "产品名称";
+			// 
+			// 型号
+			// 
+			this.型号.HeaderText = "型号";
+			this.型号.Name = "型号";
+			// 
+			// 单位
+			// 
+			this.单位.HeaderText = "单位";
+			this.单位.Name = "单位";
+			// 
+			// Qty
+			// 
+			this.Qty.HeaderText = "数量";
+			this.Qty.Name = "Qty";
+			// 
+			// Price
+			// 
+			this.Price.HeaderText = "单价";
+			this.Price.Name = "Price";
+			// 
+			// Amt
+			// 
+			this.Amt.HeaderText = "金额";
+			this.Amt.Name = "Amt";
+			this.Amt.ReadOnly = true;
+			// 
+			// 备注
+			// 
+			this.备注.HeaderText = "备注";
+			this.备注.Name = "备注";
 			// 
 			// lbl_CustomerName
 			// 
@@ -189,49 +233,6 @@
 			this.lbl_AmtFigures.Name = "lbl_AmtFigures";
 			this.lbl_AmtFigures.Size = new System.Drawing.Size(0, 12);
 			this.lbl_AmtFigures.TabIndex = 12;
-			// 
-			// SeqNo
-			// 
-			this.SeqNo.DataPropertyName = "SeqNo";
-			this.SeqNo.HeaderText = "序号";
-			this.SeqNo.Name = "SeqNo";
-			this.SeqNo.ReadOnly = true;
-			// 
-			// 产品名称
-			// 
-			this.产品名称.HeaderText = "产品名称";
-			this.产品名称.Name = "产品名称";
-			// 
-			// 型号
-			// 
-			this.型号.HeaderText = "型号";
-			this.型号.Name = "型号";
-			// 
-			// 单位
-			// 
-			this.单位.HeaderText = "单位";
-			this.单位.Name = "单位";
-			// 
-			// Qty
-			// 
-			this.Qty.HeaderText = "数量";
-			this.Qty.Name = "Qty";
-			// 
-			// Price
-			// 
-			this.Price.HeaderText = "单价";
-			this.Price.Name = "Price";
-			// 
-			// Amt
-			// 
-			this.Amt.HeaderText = "金额";
-			this.Amt.Name = "Amt";
-			this.Amt.ReadOnly = true;
-			// 
-			// 备注
-			// 
-			this.备注.HeaderText = "备注";
-			this.备注.Name = "备注";
 			// 
 			// Order
 			// 

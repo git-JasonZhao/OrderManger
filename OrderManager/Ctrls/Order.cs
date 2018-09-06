@@ -49,24 +49,35 @@ namespace OrderManager.Ctrls
 					amtTotal += amt;
 				}
 			}
-			this.lbl_AmtWords.Text = "零元整";
+			this.lbl_AmtWords.Text = Lib.AmtHelper.ToCHAmt(amtTotal);
 			this.lbl_AmtFigures.Text = string.Format("￥{0:0.00}", amtTotal);
 		}
 
-		private void dgv_OrderProd_RowLeave(object sender, DataGridViewCellEventArgs e)
+		private void dgv_OrderProd_RowValidated(object sender, DataGridViewCellEventArgs e)
 		{
-			this.dgv_OrderProd.Rows[e.RowIndex].Cells["SeqNo"].Value = e.RowIndex + 1;
-			float qty = 0, price = 0;
-			if (this.dgv_OrderProd.Rows[e.RowIndex].Cells["Qty"].Value != null)
+			if (e.RowIndex != this.dgv_OrderProd.Rows.Count - 1)
 			{
-				float.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Qty"].Value.ToString(), out qty);
+				this.dgv_OrderProd.Rows[e.RowIndex].Cells["SeqNo"].Value = e.RowIndex + 1;
+				float qty = 0, price = 0;
+				if (this.dgv_OrderProd.Rows[e.RowIndex].Cells["Qty"].Value != null)
+				{
+					float.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Qty"].Value.ToString(), out qty);
+				}
+				if (this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value != null)
+				{
+					float.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value.ToString(), out price);
+				}
+				this.dgv_OrderProd.Rows[e.RowIndex].Cells["Amt"].Value = qty * price;
+				SumAmt();
 			}
-			if (this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value != null)
+		}
+
+		private void dgv_OrderProd_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+		{
+			for (int i = 0; i < this.dgv_OrderProd.Rows.Count - 1; i++)
 			{
-				float.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value.ToString(), out price);
+				this.dgv_OrderProd.Rows[i].Cells["SeqNo"].Value = i + 1;
 			}
-			this.dgv_OrderProd.Rows[e.RowIndex].Cells["Amt"].Value = qty * price;
-			SumAmt();
 		}
 	}
 }
