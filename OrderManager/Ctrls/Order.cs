@@ -86,7 +86,26 @@ namespace OrderManager.Ctrls
 		{
 			using (var context = new Context())
 			{
-				MessageBox.Show(context.Orders.Count().ToString());
+				var order = new Models.Order() { RStatus = true, RIDate = DateTime.Now, OrderId = "0000004" };
+				order.CustomerId = "C001";
+				order.DeliveryDate = DateTime.Now;
+				order.OrderTime = DateTime.Now;
+				for (int i = 0; i < this.dgv_OrderProd.Rows.Count - 1; i++)
+				{
+					DataGridViewRow row = this.dgv_OrderProd.Rows[i];
+					var orderprod = new Models.OrderProduct { RStatus = true, RIDate = DateTime.Now, OrderProductId = Guid.NewGuid().ToString() };
+					orderprod.Amt = row.Cells["Amt"] == null || row.Cells["Amt"].Value == null ? 0 : decimal.Parse(row.Cells["Amt"].Value.ToString());
+					orderprod.OrderId = order.OrderId;
+					orderprod.Price = row.Cells["Price"] == null || row.Cells["Price"].Value == null ? 0 : decimal.Parse(row.Cells["Price"].Value.ToString());
+					orderprod.ProductId = "P001";
+					orderprod.Qty = row.Cells["Qty"] == null || row.Cells["Qty"].Value == null ? 0 : decimal.Parse(row.Cells["Qty"].Value.ToString());
+					orderprod.Remark = row.Cells["Remark"] == null || row.Cells["Remark"].Value == null ? "" : row.Cells["Remark"].Value.ToString();
+					orderprod.SeqNo = row.Cells["SeqNo"] == null || row.Cells["SeqNo"].Value == null ? 0 : int.Parse(row.Cells["SeqNo"].Value.ToString());
+					context.OrderProducts.Add(orderprod);
+				}
+				context.Orders.Add(order);
+				context.SaveChanges();
+				MessageBox.Show("保存成功。");
 			}
 		}
 	}

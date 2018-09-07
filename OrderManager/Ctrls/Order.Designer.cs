@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.dgv_OrderProd = new System.Windows.Forms.DataGridView();
 			this.lbl_CustomerName = new System.Windows.Forms.Label();
 			this.txt_CustomerName = new System.Windows.Forms.TextBox();
@@ -45,13 +45,13 @@
 			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
 			this.lbl_OrderNo = new System.Windows.Forms.Label();
 			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.产品名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.单位 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProdName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.备注 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -60,24 +60,24 @@
 			this.dgv_OrderProd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F);
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F);
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.dgv_OrderProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_OrderProd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SeqNo,
-            this.产品名称,
-            this.型号,
-            this.单位,
+            this.ProdName,
+            this.Model,
+            this.Unit,
             this.Qty,
             this.Price,
             this.Amt,
-            this.备注});
+            this.Remark});
 			this.dgv_OrderProd.Location = new System.Drawing.Point(0, 33);
 			this.dgv_OrderProd.Name = "dgv_OrderProd";
 			this.dgv_OrderProd.RowTemplate.Height = 23;
@@ -221,22 +221,22 @@
 			this.SeqNo.ReadOnly = true;
 			this.SeqNo.Width = 60;
 			// 
-			// 产品名称
+			// ProdName
 			// 
-			this.产品名称.HeaderText = "产品名称";
-			this.产品名称.Name = "产品名称";
-			this.产品名称.Width = 150;
+			this.ProdName.HeaderText = "产品名称";
+			this.ProdName.Name = "ProdName";
+			this.ProdName.Width = 150;
 			// 
-			// 型号
+			// Model
 			// 
-			this.型号.HeaderText = "型号";
-			this.型号.Name = "型号";
-			this.型号.Width = 150;
+			this.Model.HeaderText = "型号";
+			this.Model.Name = "Model";
+			this.Model.Width = 150;
 			// 
-			// 单位
+			// Unit
 			// 
-			this.单位.HeaderText = "单位";
-			this.单位.Name = "单位";
+			this.Unit.HeaderText = "单位";
+			this.Unit.Name = "Unit";
 			// 
 			// Qty
 			// 
@@ -254,11 +254,11 @@
 			this.Amt.Name = "Amt";
 			this.Amt.ReadOnly = true;
 			// 
-			// 备注
+			// Remark
 			// 
-			this.备注.HeaderText = "备注";
-			this.备注.Name = "备注";
-			this.备注.Width = 150;
+			this.Remark.HeaderText = "备注";
+			this.Remark.Name = "Remark";
+			this.Remark.Width = 150;
 			// 
 			// Order
 			// 
@@ -306,12 +306,12 @@
 		private System.Windows.Forms.Label lbl_TextOrderNo;
 		private System.Windows.Forms.Label lbl_OrderNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn SeqNo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn 产品名称;
-		private System.Windows.Forms.DataGridViewTextBoxColumn 型号;
-		private System.Windows.Forms.DataGridViewTextBoxColumn 单位;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ProdName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Model;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Price;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Amt;
-		private System.Windows.Forms.DataGridViewTextBoxColumn 备注;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Remark;
 	}
 }

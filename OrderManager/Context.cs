@@ -9,13 +9,14 @@ namespace OrderManager
 {
 	public class Context : DbContext
 	{
-		public Context() : base("DefaultConnection") { }
+		public Context() : base("OrderMangerDB") { }
 
-		public DbSet<Order> Orders { get; set; }
+		public DbSet<Models.Customer> Customers { get; set; }
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
-		{
-			base.OnModelCreating(modelBuilder);
-		}
+		public DbSet<Models.Product> Products { get; set; }
+
+		public DbSet<Models.Order> Orders { get; set; }
+
+		public DbSet<Models.OrderProduct> OrderProducts { get; set; }
 	}
 }
