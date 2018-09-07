@@ -84,7 +84,10 @@ namespace OrderManager.Ctrls
 
 		private void btn_Save_Click(object sender, EventArgs e)
 		{
-
+			using (var context = new Context())
+			{
+				MessageBox.Show(context.Orders.Count().ToString());
+			}
 		}
 	}
 }
