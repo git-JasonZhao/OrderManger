@@ -81,7 +81,7 @@ namespace OrderManager.Lib
 				ppvw.Document = printDoc; //设置要打印的文档 
 				((Form)ppvw).WindowState = FormWindowState.Maximized; //最大化 
 				printDoc.PrintPage += new PrintPageEventHandler(printDoc_PrintPage); //打印事件 
-				ppvw.Document.DefaultPageSettings.Landscape = true;// 设置打印为横向 
+				ppvw.Document.DefaultPageSettings.Landscape = false;// 设置打印为横向 
 				ppvw.ShowDialog(); //打开预览
 			}
 			catch (Exception ex)
@@ -172,6 +172,12 @@ namespace OrderManager.Lib
 			x = e.MarginBounds.Left;
 
 			//画表头
+			int rowIndex = 0;
+			int rowHeight = 0;
+			int colWidth = 0;
+			int colIndex = 0;
+			float cenderHeight = 0;
+			Font font = null;
 			foreach (DataGridViewColumn column in dgv.Columns)
 			{
 				//隐藏列返回
@@ -182,7 +188,7 @@ namespace OrderManager.Lib
 				float cenderWidth = (columnWidth - e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Width) / 2;
 				if (cenderWidth < 0) cenderWidth = 0;
 				//内容居中要加的高度
-				float cenderHeight = (headerHeight + padding - e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Height) / 2;
+				cenderHeight = (headerHeight + padding - e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Height) / 2;
 				if (cenderHeight < 0) cenderHeight = 0;
 				////画背景
 				//e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), new Rectangle(x, y, columnWidth, headerHeight));
@@ -205,12 +211,7 @@ namespace OrderManager.Lib
 			}
 			x = e.MarginBounds.Left;
 			y += headerHeight;
-			int rowIndex = 0;
-			int rowHeight = 0;
-			int colWidth = 0;
-			int colIndex = 0;
-			Font font = null;
-			while (rowIndex < dgv.Rows.Count)
+			while (rowIndex < dgv.Rows.Count - 1)
 			{
 				DataGridViewRow row = dgv.Rows[rowIndex];
 				if (row.Visible)
@@ -237,7 +238,7 @@ namespace OrderManager.Lib
 							float cenderWidth = (columnWidth - e.Graphics.MeasureString(cell.Value.ToString(), cell.InheritedStyle.Font, columnWidth).Width) / 2;
 							if (cenderWidth < 0) cenderWidth = 0;
 							//内容居中要加的高度
-							float cenderHeight = (rowHeight + padding - e.Graphics.MeasureString(cell.Value.ToString(), cell.InheritedStyle.Font, columnWidth).Height) / 2;
+							cenderHeight = (rowHeight + padding - e.Graphics.MeasureString(cell.Value.ToString(), cell.InheritedStyle.Font, columnWidth).Height) / 2;
 							if (cenderHeight < 0) cenderHeight = 0;
 							////画下边线
 							//e.Graphics.DrawLine(Pens.Black, x, y + rowHeight, x + columnWidth, y + rowHeight);
@@ -265,28 +266,28 @@ namespace OrderManager.Lib
 			}
 			//画汇总
 			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, colWidth, rowHeight));
-			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x + colWidth, y, colWidth, rowHeight));
+			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x + colWidth, y, e.MarginBounds.Width - colWidth, rowHeight));
 			#endregion
 
 			#region 大写金额
 			textFont = font;
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, e.MarginBounds.Width);
 			//x坐标
-			x = e.MarginBounds.Left;
+			x = e.MarginBounds.Left + 5;
 			//画标题
-			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, Brushes.Black, x, y);
+			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, Brushes.Black, x, y + (int)cenderHeight);
 			#endregion
 
 			#region 小写金额
 			textFont = font;
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, e.MarginBounds.Width);
 			//x坐标
-			x = (e.MarginBounds.Width + (int)textSize.Width) / 2;
+			x += colWidth;
 			//画标题
-			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, Brushes.Black, x, y);
+			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, Brushes.Black, x, y + (int)cenderHeight);
 			#endregion
 
-			y += rowHeight + 2;
+			y += rowHeight + 4;
 
 			#region 电话
 			textFont = new Font(FamilyName, EMSize);
