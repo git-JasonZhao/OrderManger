@@ -28,7 +28,7 @@ namespace OrderManager.Lib
 		public string CompanyDesc { get { return "公司主营：配电箱 成套 电器电线 强磁铁 磁棒 除铁器 橡胶磁 电热水箱 烘房 烤房 电炉 烘箱 蒸饭机 开水器 电加热管 电阻丝 高温线 温控仪 热电偶 压力表 压力变送器 液位变送器 电磁流量计 涡轮流量计"; } }
 		public string Signature { get { return "客户签字"; } }
 
-		public string OrderNo { get { return " AS2011-"; } }
+		public string OrderNo { get { return "NO：000001"; } }
 
 		public string TextCustomerName { get; set; }
 
@@ -95,239 +95,230 @@ namespace OrderManager.Lib
 			Font textFont;
 			SizeF textSize;
 			int x;
-			int y = e.MarginBounds.Top;
-			float pagerWidth = e.MarginBounds.Width;
+			int y;
+			int textLineSpacing = 2;
+			int padding = 5;
+			int borderWidth = 1;
 
 			#region 标题
 			textFont = new Font(FamilyName, 14);
 			textSize = e.Graphics.MeasureString(Title, textFont, e.MarginBounds.Width);
-			//x坐标
-			x = Convert.ToInt32((pagerWidth - textSize.Width) / 2 + e.MarginBounds.Left);
-			//y坐标
-			y = Convert.ToInt32(y - textSize.Height);
-			//画标题
+			//float titleHeight = textSize.Height;
+			x = e.MarginBounds.Left + (e.MarginBounds.Width - (int)textSize.Width) / 2;
+			y = e.MarginBounds.Top - (int)textSize.Height;
+			//画 标题
 			e.Graphics.DrawString(Title, textFont, Brushes.Black, x, y);
 			#endregion
 
-			y += (int)textSize.Height + 2;
+			#region 单号
+			y = y + (int)(textSize.Height / 2);
+			textFont = new Font(FamilyName, EMSize);
+			textSize = e.Graphics.MeasureString(OrderNo, textFont, e.MarginBounds.Width);
+			x = e.MarginBounds.Right - (int)textSize.Width;
+			y = y - (int)(textSize.Height / 2);
+			//画 标题
+			e.Graphics.DrawString(OrderNo, textFont, Brushes.Black, x, y);
+			#endregion
+
+			y = e.MarginBounds.Top + textLineSpacing;
 
 			#region 客户姓名
 			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextCustomerName, CustomerName), textFont, e.MarginBounds.Width);
-			//x坐标
 			x = e.MarginBounds.Left;
-			//画标题
+			//画 客户姓名
 			e.Graphics.DrawString(string.Format("{0}{1}", TextCustomerName, CustomerName), textFont, Brushes.Black, x, y);
 			#endregion
 
 			#region 联系电话
 			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextTelephone, Telephone), textFont, e.MarginBounds.Width);
-			//x坐标
-			x = Convert.ToInt32((pagerWidth - textSize.Width) / 2 + e.MarginBounds.Left);
-			//边距以内纸张宽度
-			pagerWidth = e.MarginBounds.Width;
-			//画标题
+			x = e.MarginBounds.Left + (e.MarginBounds.Width - (int)textSize.Width) / 2;
+			//画 联系电话
 			e.Graphics.DrawString(string.Format("{0}{1}", TextTelephone, Telephone), textFont, Brushes.Black, x, y);
 			#endregion
 
 			#region 送货日期
 			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextDeliveryDate, DeliveryDate), textFont, e.MarginBounds.Width);
-			//x坐标
-			x = Convert.ToInt32(e.MarginBounds.Right - textSize.Width);
-			//边距以内纸张宽度
-			pagerWidth = e.MarginBounds.Width;
-			//画标题
+			x = e.MarginBounds.Right - (int)textSize.Width;
+			//画 送货日期
 			e.Graphics.DrawString(string.Format("{0}{1}", TextDeliveryDate, DeliveryDate), textFont, Brushes.Black, x, y);
 			#endregion
 
-			y += (int)textSize.Height + 2;
+			y += (int)textSize.Height + textLineSpacing;
 
 			#region 表格
-			//表头高度
-			int headerHeight = 0;
-			//纵轴上 内容与线的距离
-			int padding = 6;
-			//所有显示列的宽度
-			int columnsWidth = 0;
-			//计算所有显示列的宽度
+			//计算DataGridView所有显示列的宽度
+			int dgvAllColsWidth = 0;
+			int visibleColumnNo = 0;
+			foreach (DataGridViewColumn column in dgv.Columns)
+			{
+				if (column.Visible)
+				{
+					visibleColumnNo++;
+					dgvAllColsWidth += column.Width;
+				}
+			}
+			//计算打印出的表头的高度
+			int tableHeaderHeight = 0;
+			int tableHeaderWidth = 0;
+			int halftableHeaderWidth = 0;
+			int columnIndex = 0;
+			List<int> cellHeaderWidths = new List<int>();
+			foreach (DataGridViewColumn column in dgv.Columns)
+			{
+				if (column.Visible)
+				{
+					columnIndex++;
+					int cellHeaderWidth = columnIndex < visibleColumnNo ? (int)((double)column.Width / (double)dgvAllColsWidth * (double)e.MarginBounds.Width) : e.MarginBounds.Width - tableHeaderWidth;
+					cellHeaderWidths.Add(cellHeaderWidth);
+					int hHeight = (int)e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, cellHeaderWidth).Height + 2 * padding;
+					if (hHeight > tableHeaderHeight)
+					{
+						tableHeaderHeight = hHeight;
+					}
+					tableHeaderWidth += cellHeaderWidth;
+					if (columnIndex <= visibleColumnNo / 2)
+					{
+						halftableHeaderWidth += cellHeaderWidth;
+					}
+				}
+			}
+
+			#region 画表头
+			x = e.MarginBounds.Left;
+			columnIndex = 0;
 			foreach (DataGridViewColumn column in dgv.Columns)
 			{
 				//隐藏列返回
-				if (!column.Visible) continue;
-				//所有显示列的宽度
-				columnsWidth += column.Width;
+				if (column.Visible)
+				{
+					textFont = column.InheritedStyle.Font;
+					textSize = e.Graphics.MeasureString(column.HeaderText, textFont, cellHeaderWidths[columnIndex]);
+					////画上边线
+					//e.Graphics.DrawLine(Pens.Black, x, y, x + columnWidth, y);
+					////画下边线
+					//e.Graphics.DrawLine(Pens.Black, x, y + headerHeight, x + columnWidth, y + headerHeight);
+					////画右边线
+					//e.Graphics.DrawLine(Pens.Black, x + columnWidth, y, x + columnWidth, y + headerHeight);
+					//if (x == e.MarginBounds.Left)
+					//{
+					////画左边线
+					//e.Graphics.DrawLine(Pens.Black, x, y, x, y + headerHeight);
+					//}	
+					////画背景
+					//e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), new Rectangle(x, y, columnWidth, headerHeight));
+					//画边框
+					e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, cellHeaderWidths[columnIndex], tableHeaderHeight));
+					//画内容
+					e.Graphics.DrawString(column.HeaderText, column.InheritedStyle.Font, Brushes.Black, new RectangleF(x + (cellHeaderWidths[columnIndex] - textSize.Width) / 2, y + borderWidth + (tableHeaderHeight - textSize.Height) / 2, cellHeaderWidths[columnIndex], tableHeaderHeight));
+					x += cellHeaderWidths[columnIndex];
+					columnIndex++;
+				}
 			}
-			//计算表头高度
-			foreach (DataGridViewColumn column in dgv.Columns)
-			{
-				//列宽
-				int columnWidth = (int)(Math.Floor((double)column.Width / (double)columnsWidth * (double)pagerWidth));
-				//表头高度
-				int temp = (int)e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Height + 2 * padding;
-				if (temp > headerHeight) headerHeight = temp;
-			}
+			#endregion
 
+			#region 话表格数据
 			x = e.MarginBounds.Left;
+			y += tableHeaderHeight;
 
-			//画表头
+			int tableRowHeight = tableHeaderHeight;
+			columnIndex = 0;
 			int rowIndex = 0;
-			int rowHeight = 0;
-			int colWidth = 0;
-			int colIndex = 0;
-			float cenderHeight = 0;
-			Font font = null;
-			foreach (DataGridViewColumn column in dgv.Columns)
+			foreach (DataGridViewRow row in dgv.Rows)
 			{
-				//隐藏列返回
-				if (!column.Visible) continue;
-				//列宽
-				int columnWidth = (int)(Math.Floor((double)column.Width / (double)columnsWidth * (double)pagerWidth));
-				//内容居中要加的宽度
-				float cenderWidth = (columnWidth - e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Width) / 2;
-				if (cenderWidth < 0) cenderWidth = 0;
-				//内容居中要加的高度
-				cenderHeight = (headerHeight + padding - e.Graphics.MeasureString(column.HeaderText, column.InheritedStyle.Font, columnWidth).Height) / 2;
-				if (cenderHeight < 0) cenderHeight = 0;
-				////画背景
-				//e.Graphics.FillRectangle(new SolidBrush(Color.LightGray), new Rectangle(x, y, columnWidth, headerHeight));
-				//画边框
-				e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, columnWidth, headerHeight));
-				////画上边线
-				//e.Graphics.DrawLine(Pens.Black, x, y, x + columnWidth, y);
-				////画下边线
-				//e.Graphics.DrawLine(Pens.Black, x, y + headerHeight, x + columnWidth, y + headerHeight);
-				////画右边线
-				//e.Graphics.DrawLine(Pens.Black, x + columnWidth, y, x + columnWidth, y + headerHeight);
-				//if (x == e.MarginBounds.Left)
-				//{
-				////画左边线
-				//e.Graphics.DrawLine(Pens.Black, x, y, x, y + headerHeight);
-				//}
-				//画内容
-				e.Graphics.DrawString(column.HeaderText, column.InheritedStyle.Font, new SolidBrush(column.InheritedStyle.ForeColor), new RectangleF(x + cenderWidth, y + cenderHeight, columnWidth, headerHeight));
-				x += columnWidth;
-			}
-			x = e.MarginBounds.Left;
-			y += headerHeight;
-			while (rowIndex < dgv.Rows.Count - 1)
-			{
-				DataGridViewRow row = dgv.Rows[rowIndex];
-				if (row.Visible)
+				if (row.Visible && rowIndex < dgv.Rows.Count - 1)
 				{
 					foreach (DataGridViewCell cell in row.Cells)
 					{
 						DataGridViewColumn column = dgv.Columns[cell.ColumnIndex];
-						if (!column.Visible || cell.Value == null) continue;
-						int tmpWidth = (int)(Math.Floor((double)column.Width / (double)columnsWidth * (double)pagerWidth));
-						int temp = (int)e.Graphics.MeasureString(cell.Value.ToString(), column.InheritedStyle.Font, tmpWidth).Height + 2 * padding;
-						if (temp > rowHeight) rowHeight = temp;
-					}
-					colIndex = 0;
-					foreach (DataGridViewCell cell in row.Cells)
-					{
-						font = cell.InheritedStyle.Font;
-						DataGridViewColumn column = dgv.Columns[cell.ColumnIndex];
-						if (!column.Visible) continue;
-						int columnWidth = (int)(Math.Floor((double)column.Width / (double)columnsWidth * (double)pagerWidth));
-						e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, columnWidth, rowHeight));
-						if (cell.Value != null)
+						if (column.Visible)
 						{
-							//内容居中要加的宽度
-							float cenderWidth = (columnWidth - e.Graphics.MeasureString(cell.Value.ToString(), cell.InheritedStyle.Font, columnWidth).Width) / 2;
-							if (cenderWidth < 0) cenderWidth = 0;
-							//内容居中要加的高度
-							cenderHeight = (rowHeight + padding - e.Graphics.MeasureString(cell.Value.ToString(), cell.InheritedStyle.Font, columnWidth).Height) / 2;
-							if (cenderHeight < 0) cenderHeight = 0;
-							////画下边线
-							//e.Graphics.DrawLine(Pens.Black, x, y + rowHeight, x + columnWidth, y + rowHeight);
-							////画右边线
-							//e.Graphics.DrawLine(Pens.Black, x + columnWidth, y, x + columnWidth, y + rowHeight);
-							//if (x == e.MarginBounds.Left)
-							//{
-							////画左边线
-							//e.Graphics.DrawLine(Pens.Black, x, y, x, y + rowHeight);
-							//}
-							//画内容
-							e.Graphics.DrawString(cell.Value.ToString(), column.InheritedStyle.Font, new SolidBrush(cell.InheritedStyle.ForeColor), new RectangleF(x + cenderWidth, y + cenderHeight, columnWidth, rowHeight));
+							e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, cellHeaderWidths[columnIndex], tableRowHeight));
+							if (cell.Value != null)
+							{
+								textFont = column.InheritedStyle.Font;
+								textSize = e.Graphics.MeasureString(cell.Value.ToString(), textFont, cellHeaderWidths[columnIndex]);
+								////画下边线
+								//e.Graphics.DrawLine(Pens.Black, x, y + tableRowHeight, x + columnWidth, y + tableRowHeight);
+								////画右边线
+								//e.Graphics.DrawLine(Pens.Black, x + columnWidth, y, x + columnWidth, y + tableRowHeight);
+								//if (x == e.MarginBounds.Left)
+								//{
+								////画左边线
+								//e.Graphics.DrawLine(Pens.Black, x, y, x, y + tableRowHeight);
+								//}
+								//画内容
+								e.Graphics.DrawString(cell.Value.ToString(), textFont, Brushes.Black, new RectangleF(x + (cellHeaderWidths[columnIndex] - textSize.Width) / 2, y + borderWidth + (tableRowHeight - textSize.Height) / 2, cellHeaderWidths[columnIndex], tableRowHeight));
+							}
+							x += cellHeaderWidths[columnIndex];
+							columnIndex++;
 						}
-						x += columnWidth;
-						if (colIndex < 4)
-						{
-							colWidth += columnWidth;
-						}
-						colIndex++;
 					}
 					x = e.MarginBounds.Left;
-					y += rowHeight;
+					y += tableRowHeight;
+					columnIndex = 0;
 				}
 				rowIndex++;
 			}
-			//画汇总
-			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, colWidth, rowHeight));
-			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x + colWidth, y, e.MarginBounds.Width - colWidth, rowHeight));
 			#endregion
 
 			#region 大写金额
-			textFont = font;
+			x = e.MarginBounds.Left;
+			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, halftableHeaderWidth, tableHeaderHeight));
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, e.MarginBounds.Width);
-			//x坐标
-			x = e.MarginBounds.Left + 5;
-			//画标题
-			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, Brushes.Black, x, y + (int)cenderHeight);
+			x = e.MarginBounds.Left + padding;
+			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtWords, AmtWords), textFont, Brushes.Black, x, y + borderWidth + (tableRowHeight - (int)textSize.Height) / 2);
 			#endregion
 
 			#region 小写金额
-			textFont = font;
+			x = e.MarginBounds.Left + halftableHeaderWidth;
+			e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x, y, e.MarginBounds.Width - halftableHeaderWidth, tableHeaderHeight));
 			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, e.MarginBounds.Width);
-			//x坐标
-			x += colWidth;
-			//画标题
-			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, Brushes.Black, x, y + (int)cenderHeight);
+			x = e.MarginBounds.Left + halftableHeaderWidth + padding;
+			e.Graphics.DrawString(string.Format("{0}{1}", TextAmtFigures, AmtFigures), textFont, Brushes.Black, x, y + borderWidth + (tableRowHeight - (int)textSize.Height) / 2);
 			#endregion
 
-			y += rowHeight + 4;
+			#endregion
+
+			y += tableRowHeight + textLineSpacing * 2;
 
 			#region 电话
 			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(Tel, textFont, e.MarginBounds.Width);
-			//x坐标
 			x = e.MarginBounds.Left;
-			//画标题
+			//画 电话
 			e.Graphics.DrawString(Tel, textFont, Brushes.Black, x, y);
 			#endregion
 
 			#region 地址
 			textFont = new Font(FamilyName, EMSize);
 			textSize = e.Graphics.MeasureString(Address, textFont, e.MarginBounds.Width);
-			//x坐标
-			x = Convert.ToInt32(e.MarginBounds.Right - textSize.Width);
-			//画标题
+			x = e.MarginBounds.Right - (int)textSize.Width;
+			//画 地址
 			e.Graphics.DrawString(Address, textFont, Brushes.Black, x, y);
 			#endregion
 
-			y += (int)textSize.Height + 2;
+			y += (int)textSize.Height + textLineSpacing;
 
 			#region 公司描述
 			textFont = new Font(FamilyName, EMSize);
-			//x坐标
 			x = e.MarginBounds.Left;
 			StringFormat strformat = new StringFormat() { LineAlignment = StringAlignment.Near, FormatFlags = StringFormatFlags.LineLimit };//左对齐、自动换行
 			Rectangle rectangle = new Rectangle(x, y, e.MarginBounds.Width, e.MarginBounds.Height);
 			textSize = e.Graphics.MeasureString(CompanyDesc, textFont, e.MarginBounds.Width, strformat);
-			//画标题
+			//画 公司描述
 			e.Graphics.DrawString(CompanyDesc, textFont, Brushes.Black, rectangle, strformat);
 			#endregion
 
-			y += (int)textSize.Height + 2;
+			y += (int)textSize.Height + textLineSpacing;
 
 			#region 客户签字
 			textFont = new Font(FamilyName, 12);
 			textSize = e.Graphics.MeasureString(string.Format("{0}名字名字名字名字名字", Signature), textFont, e.MarginBounds.Width);
-			//x坐标
 			x = e.MarginBounds.Right - (int)textSize.Width;
-			//画标题
+			//画 客户签字
 			e.Graphics.DrawString(string.Format("{0}", Signature), textFont, Brushes.Black, x, y);
 			#endregion
 		}
