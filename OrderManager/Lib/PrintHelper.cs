@@ -28,7 +28,7 @@ namespace OrderManager.Lib
 		public string CompanyDesc { get { return "公司主营：配电箱 成套 电器电线 强磁铁 磁棒 除铁器 橡胶磁 电热水箱 烘房 烤房 电炉 烘箱 蒸饭机 开水器 电加热管 电阻丝 高温线 温控仪 热电偶 压力表 压力变送器 液位变送器 电磁流量计 涡轮流量计"; } }
 		public string Signature { get { return "客户签字"; } }
 
-		public string OrderNo { get { return "NO：000001"; } }
+		public string TextOrderNo { get; set; }
 
 		public string TextCustomerName { get; set; }
 
@@ -39,6 +39,8 @@ namespace OrderManager.Lib
 		public string TextAmtWords { get; set; }
 
 		public string TextAmtFigures { get; set; }
+
+		public string OrderNo { get; set; }
 
 		/// <summary>
 		/// 客户姓名
@@ -113,11 +115,11 @@ namespace OrderManager.Lib
 			#region 单号
 			y = y + (int)(textSize.Height / 2);
 			textFont = new Font(FamilyName, EMSize);
-			textSize = e.Graphics.MeasureString(OrderNo, textFont, e.MarginBounds.Width);
+			textSize = e.Graphics.MeasureString(string.Format("{0}{1}", TextOrderNo, OrderNo), textFont, e.MarginBounds.Width);
 			x = e.MarginBounds.Right - (int)textSize.Width;
 			y = y - (int)(textSize.Height / 2);
 			//画 标题
-			e.Graphics.DrawString(OrderNo, textFont, Brushes.Black, x, y);
+			e.Graphics.DrawString(string.Format("{0}{1}", TextOrderNo, OrderNo), textFont, Brushes.Black, x, y);
 			#endregion
 
 			y = e.MarginBounds.Top + textLineSpacing;

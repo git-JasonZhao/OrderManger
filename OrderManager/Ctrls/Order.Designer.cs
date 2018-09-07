@@ -28,16 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.dgv_OrderProd = new System.Windows.Forms.DataGridView();
-			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.产品名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.单位 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.备注 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.lbl_CustomerName = new System.Windows.Forms.Label();
 			this.txt_CustomerName = new System.Windows.Forms.TextBox();
 			this.txt_Telephone = new System.Windows.Forms.TextBox();
@@ -50,6 +42,16 @@
 			this.lbl_AmtWords = new System.Windows.Forms.Label();
 			this.lbl_TextAmtFigures = new System.Windows.Forms.Label();
 			this.lbl_AmtFigures = new System.Windows.Forms.Label();
+			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
+			this.lbl_OrderNo = new System.Windows.Forms.Label();
+			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.产品名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.型号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.单位 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.备注 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -58,14 +60,14 @@
 			this.dgv_OrderProd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F);
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F);
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this.dgv_OrderProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_OrderProd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SeqNo,
@@ -79,53 +81,10 @@
 			this.dgv_OrderProd.Location = new System.Drawing.Point(0, 33);
 			this.dgv_OrderProd.Name = "dgv_OrderProd";
 			this.dgv_OrderProd.RowTemplate.Height = 23;
-			this.dgv_OrderProd.Size = new System.Drawing.Size(850, 467);
+			this.dgv_OrderProd.Size = new System.Drawing.Size(1000, 467);
 			this.dgv_OrderProd.TabIndex = 0;
 			this.dgv_OrderProd.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_OrderProd_RowsRemoved);
 			this.dgv_OrderProd.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_OrderProd_RowValidated);
-			// 
-			// SeqNo
-			// 
-			this.SeqNo.DataPropertyName = "SeqNo";
-			this.SeqNo.HeaderText = "序号";
-			this.SeqNo.Name = "SeqNo";
-			this.SeqNo.ReadOnly = true;
-			// 
-			// 产品名称
-			// 
-			this.产品名称.HeaderText = "产品名称";
-			this.产品名称.Name = "产品名称";
-			// 
-			// 型号
-			// 
-			this.型号.HeaderText = "型号";
-			this.型号.Name = "型号";
-			// 
-			// 单位
-			// 
-			this.单位.HeaderText = "单位";
-			this.单位.Name = "单位";
-			// 
-			// Qty
-			// 
-			this.Qty.HeaderText = "数量";
-			this.Qty.Name = "Qty";
-			// 
-			// Price
-			// 
-			this.Price.HeaderText = "单价";
-			this.Price.Name = "Price";
-			// 
-			// Amt
-			// 
-			this.Amt.HeaderText = "金额";
-			this.Amt.Name = "Amt";
-			this.Amt.ReadOnly = true;
-			// 
-			// 备注
-			// 
-			this.备注.HeaderText = "备注";
-			this.备注.Name = "备注";
 			// 
 			// lbl_CustomerName
 			// 
@@ -179,7 +138,8 @@
 			// 
 			// btn_Print
 			// 
-			this.btn_Print.Location = new System.Drawing.Point(591, 5);
+			this.btn_Print.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btn_Print.Location = new System.Drawing.Point(922, 5);
 			this.btn_Print.Name = "btn_Print";
 			this.btn_Print.Size = new System.Drawing.Size(75, 23);
 			this.btn_Print.TabIndex = 7;
@@ -189,12 +149,14 @@
 			// 
 			// btn_Save
 			// 
-			this.btn_Save.Location = new System.Drawing.Point(510, 5);
+			this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btn_Save.Location = new System.Drawing.Point(841, 5);
 			this.btn_Save.Name = "btn_Save";
 			this.btn_Save.Size = new System.Drawing.Size(75, 23);
 			this.btn_Save.TabIndex = 8;
 			this.btn_Save.Text = "保存";
 			this.btn_Save.UseVisualStyleBackColor = true;
+			this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
 			// 
 			// lbl_TextAmtWords
 			// 
@@ -234,10 +196,76 @@
 			this.lbl_AmtFigures.Size = new System.Drawing.Size(0, 12);
 			this.lbl_AmtFigures.TabIndex = 12;
 			// 
+			// lbl_TextOrderNo
+			// 
+			this.lbl_TextOrderNo.AutoSize = true;
+			this.lbl_TextOrderNo.Location = new System.Drawing.Point(510, 10);
+			this.lbl_TextOrderNo.Name = "lbl_TextOrderNo";
+			this.lbl_TextOrderNo.Size = new System.Drawing.Size(29, 12);
+			this.lbl_TextOrderNo.TabIndex = 13;
+			this.lbl_TextOrderNo.Text = "NO：";
+			// 
+			// lbl_OrderNo
+			// 
+			this.lbl_OrderNo.AutoSize = true;
+			this.lbl_OrderNo.Location = new System.Drawing.Point(545, 10);
+			this.lbl_OrderNo.Name = "lbl_OrderNo";
+			this.lbl_OrderNo.Size = new System.Drawing.Size(0, 12);
+			this.lbl_OrderNo.TabIndex = 14;
+			// 
+			// SeqNo
+			// 
+			this.SeqNo.DataPropertyName = "SeqNo";
+			this.SeqNo.HeaderText = "序号";
+			this.SeqNo.Name = "SeqNo";
+			this.SeqNo.ReadOnly = true;
+			this.SeqNo.Width = 60;
+			// 
+			// 产品名称
+			// 
+			this.产品名称.HeaderText = "产品名称";
+			this.产品名称.Name = "产品名称";
+			this.产品名称.Width = 150;
+			// 
+			// 型号
+			// 
+			this.型号.HeaderText = "型号";
+			this.型号.Name = "型号";
+			this.型号.Width = 150;
+			// 
+			// 单位
+			// 
+			this.单位.HeaderText = "单位";
+			this.单位.Name = "单位";
+			// 
+			// Qty
+			// 
+			this.Qty.HeaderText = "数量";
+			this.Qty.Name = "Qty";
+			// 
+			// Price
+			// 
+			this.Price.HeaderText = "单价";
+			this.Price.Name = "Price";
+			// 
+			// Amt
+			// 
+			this.Amt.HeaderText = "金额";
+			this.Amt.Name = "Amt";
+			this.Amt.ReadOnly = true;
+			// 
+			// 备注
+			// 
+			this.备注.HeaderText = "备注";
+			this.备注.Name = "备注";
+			this.备注.Width = 150;
+			// 
 			// Order
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.lbl_OrderNo);
+			this.Controls.Add(this.lbl_TextOrderNo);
 			this.Controls.Add(this.lbl_AmtFigures);
 			this.Controls.Add(this.lbl_TextAmtFigures);
 			this.Controls.Add(this.lbl_AmtWords);
@@ -252,7 +280,7 @@
 			this.Controls.Add(this.lbl_CustomerName);
 			this.Controls.Add(this.dgv_OrderProd);
 			this.Name = "Order";
-			this.Size = new System.Drawing.Size(850, 533);
+			this.Size = new System.Drawing.Size(1000, 533);
 			this.Load += new System.EventHandler(this.Order_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).EndInit();
 			this.ResumeLayout(false);
@@ -275,6 +303,8 @@
 		private System.Windows.Forms.Label lbl_AmtWords;
 		private System.Windows.Forms.Label lbl_TextAmtFigures;
 		private System.Windows.Forms.Label lbl_AmtFigures;
+		private System.Windows.Forms.Label lbl_TextOrderNo;
+		private System.Windows.Forms.Label lbl_OrderNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn SeqNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn 产品名称;
 		private System.Windows.Forms.DataGridViewTextBoxColumn 型号;
