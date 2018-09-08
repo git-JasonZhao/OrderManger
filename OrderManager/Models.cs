@@ -113,7 +113,7 @@ namespace OrderManager.Models
 		/// <summary>
 		/// 订单总金额
 		/// </summary>
-		public decimal Amount { get; set; }
+		public decimal? Amount { get; set; }
 
 		/// <summary>
 		/// 送货日期
@@ -156,15 +156,39 @@ namespace OrderManager.Models
 		public Order Order { get; set; }
 
 		/// <summary>
+		/// 产品
+		/// </summary>
+		[ForeignKey("ProductId")]
+		public Product Product { get; set; }
+
+		/// <summary>
 		/// 产品编码
 		/// </summary>
 		public string ProductId { get; set; }
 
 		/// <summary>
-		/// 产品
+		/// 产品名称
 		/// </summary>
-		[ForeignKey("ProductId")]
-		public Product Product { get; set; }
+		public string ProductName
+		{
+			get { return Product == null ? null : Product.ProductName; }
+		}
+
+		/// <summary>
+		/// 产品型号
+		/// </summary>
+		public string ProductModel
+		{
+			get { return Product == null ? null : Product.Model; }
+		}
+
+		/// <summary>
+		/// 产品单位
+		/// </summary>
+		public string ProductUnit
+		{
+			get { return Product == null ? null : Product.Unit; }
+		}
 
 		/// <summary>
 		/// 数量

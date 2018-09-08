@@ -15,6 +15,19 @@ namespace OrderManager.Ctrls
 		public Order()
 		{
 			InitializeComponent();
+			this.dgv_OrderProd.AutoGenerateColumns = false;
+		}
+
+		public void Init(Models.Order order = null)
+		{
+			if (order == null) { order = new Models.Order(); }
+			this.lbl_OrderNo.Text = order.OrderId;
+			this.txt_CustomerName.Text = order.Customer == null ? "" : order.Customer.CustomerName;
+			this.txt_Telephone.Text = order.Customer == null ? "" : order.Customer.Telephone;
+			this.txt_DeliveryDate.Text = string.Format("{0:yyyy-MM-dd}", order.DeliveryDate ?? DateTime.Now);
+			this.lbl_AmtFigures.Text = order.Amount == null ? "" : order.Amount.ToString();
+
+			this.dgv_OrderProd.DataSource = order.OrderProducts;
 		}
 
 		private void Order_Load(object sender, EventArgs e)
@@ -54,7 +67,7 @@ namespace OrderManager.Ctrls
 				{
 					float.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value.ToString(), out price);
 				}
-				this.dgv_OrderProd.Rows[e.RowIndex].Cells["Amt"].Value = qty * price;
+				this.dgv_OrderProd.Rows[e.RowIndex].Cells["Amt"].Value = (qty * price).ToString();
 				SumAmt();
 			}
 		}

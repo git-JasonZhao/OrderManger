@@ -45,9 +45,9 @@
 			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
 			this.lbl_OrderNo = new System.Windows.Forms.Label();
 			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProdName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,9 +71,9 @@
 			this.dgv_OrderProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_OrderProd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SeqNo,
-            this.ProdName,
-            this.Model,
-            this.Unit,
+            this.ProductName,
+            this.ProductModel,
+            this.ProductUnit,
             this.Qty,
             this.Price,
             this.Amt,
@@ -221,41 +221,48 @@
 			this.SeqNo.ReadOnly = true;
 			this.SeqNo.Width = 60;
 			// 
-			// ProdName
+			// ProductName
 			// 
-			this.ProdName.HeaderText = "产品名称";
-			this.ProdName.Name = "ProdName";
-			this.ProdName.Width = 150;
+			this.ProductName.DataPropertyName = "ProductName";
+			this.ProductName.HeaderText = "产品名称";
+			this.ProductName.Name = "ProductName";
+			this.ProductName.Width = 150;
 			// 
-			// Model
+			// ProductModel
 			// 
-			this.Model.HeaderText = "型号";
-			this.Model.Name = "Model";
-			this.Model.Width = 150;
+			this.ProductModel.DataPropertyName = "ProductModel";
+			this.ProductModel.HeaderText = "型号";
+			this.ProductModel.Name = "ProductModel";
+			this.ProductModel.Width = 150;
 			// 
-			// Unit
+			// ProductUnit
 			// 
-			this.Unit.HeaderText = "单位";
-			this.Unit.Name = "Unit";
+			this.ProductUnit.DataPropertyName = "ProductUnit";
+			this.ProductUnit.HeaderText = "单位";
+			this.ProductUnit.Name = "ProductUnit";
 			// 
 			// Qty
 			// 
+			this.Qty.DataPropertyName = "Qty";
 			this.Qty.HeaderText = "数量";
 			this.Qty.Name = "Qty";
 			// 
 			// Price
 			// 
+			this.Price.DataPropertyName = "Price";
 			this.Price.HeaderText = "单价";
 			this.Price.Name = "Price";
 			// 
 			// Amt
 			// 
+			this.Amt.DataPropertyName = "Amt";
 			this.Amt.HeaderText = "金额";
 			this.Amt.Name = "Amt";
 			this.Amt.ReadOnly = true;
 			// 
 			// Remark
 			// 
+			this.Remark.DataPropertyName = "Remark";
 			this.Remark.HeaderText = "备注";
 			this.Remark.Name = "Remark";
 			this.Remark.Width = 150;
@@ -289,8 +296,6 @@
 		}
 
 		#endregion
-
-		private System.Windows.Forms.DataGridView dgv_OrderProd;
 		private System.Windows.Forms.Label lbl_CustomerName;
 		private System.Windows.Forms.TextBox txt_CustomerName;
 		private System.Windows.Forms.TextBox txt_Telephone;
@@ -306,12 +311,13 @@
 		private System.Windows.Forms.Label lbl_TextOrderNo;
 		private System.Windows.Forms.Label lbl_OrderNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn SeqNo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn ProdName;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Model;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ProductModel;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ProductUnit;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Price;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Amt;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Remark;
+		private System.Windows.Forms.DataGridView dgv_OrderProd;
 	}
 }
