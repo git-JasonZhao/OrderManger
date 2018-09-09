@@ -156,15 +156,15 @@ namespace OrderManager.Models
 		public Order Order { get; set; }
 
 		/// <summary>
+		/// 产品编码
+		/// </summary>
+		public string ProductId { get; set; }
+
+		/// <summary>
 		/// 产品
 		/// </summary>
 		[ForeignKey("ProductId")]
 		public Product Product { get; set; }
-
-		/// <summary>
-		/// 产品编码
-		/// </summary>
-		public string ProductId { get; set; }
 
 		/// <summary>
 		/// 产品名称

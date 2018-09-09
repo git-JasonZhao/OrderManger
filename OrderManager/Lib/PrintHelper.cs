@@ -23,7 +23,7 @@ namespace OrderManager.Lib
 		DataGridView dgv;
 
 		public string Title { get { return "成都明辉顺达机电设备送货单"; } }
-		public string Tel { get { return "TEL：028-66157317 13981844820 183822602909"; } }
+		public string Tel { get { return "TEL：028-66157317   13981844820   183822602909"; } }
 		public string Address { get { return " 地址：金府路万贯机电城12大厅7号"; } }
 		public string CompanyDesc { get { return "公司主营：配电箱 成套 电器电线 强磁铁 磁棒 除铁器 橡胶磁 电热水箱 烘房 烤房 电炉 烘箱 蒸饭机 开水器 电加热管 电阻丝 高温线 温控仪 热电偶 压力表 压力变送器 液位变送器 电磁流量计 涡轮流量计"; } }
 		public string Signature { get { return "客户签字"; } }
@@ -227,10 +227,9 @@ namespace OrderManager.Lib
 
 			int tableRowHeight = tableHeaderHeight;
 			columnIndex = 0;
-			int rowIndex = 0;
 			foreach (DataGridViewRow row in dgv.Rows)
 			{
-				if (row.Visible && rowIndex < dgv.Rows.Count - 1)
+				if (row.Visible && row.Cells["SeqNo"].Value != null && row.Cells["SeqNo"].Value.ToString().Length > 0)
 				{
 					foreach (DataGridViewCell cell in row.Cells)
 					{
@@ -262,7 +261,6 @@ namespace OrderManager.Lib
 					y += tableRowHeight;
 					columnIndex = 0;
 				}
-				rowIndex++;
 			}
 			#endregion
 

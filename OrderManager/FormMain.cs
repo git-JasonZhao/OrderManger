@@ -26,7 +26,7 @@ namespace OrderManager
 			this.Controls.Add(ctrl_Order);
 
 			var orderservice = new Services.OrderService();
-			var order = orderservice.GetOrder("0000004");
+			var order = orderservice.GetOrder("00000005");
 			ctrl_Order.Init(order);
 
 			//split_Layot.Panel2.Hide();

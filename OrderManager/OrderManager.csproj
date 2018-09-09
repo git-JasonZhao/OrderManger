@@ -83,6 +83,7 @@
     <Compile Include="Models.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\OrderProductService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <EmbeddedResource Include="Ctrls\Order.resx">
       <DependentUpon>Order.cs</DependentUpon>

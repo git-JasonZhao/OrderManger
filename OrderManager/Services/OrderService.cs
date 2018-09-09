@@ -8,6 +8,8 @@ namespace OrderManager.Services
 {
 	public class OrderService
 	{
+		private int getNewOrderIdCount = 0;
+
 		public List<Models.Order> GetOrders()
 		{
 			using (var context = new Context())
@@ -21,6 +23,25 @@ namespace OrderManager.Services
 			using (var context = new Context())
 			{
 				return context.Orders.Include("Customer").Include("OrderProducts.Product").Where(o => o.OrderId == orderId).FirstOrDefault();
+			}
+		}
+
+		public Models.Order NewOrder()
+		{
+			var newOrder = new Models.Order();
+			newOrder.RStatus = true;
+			newOrder.RIDate = DateTime.Now;
+			newOrder.OrderId = GetNewOrderId();
+			return newOrder;
+		}
+
+		public string GetNewOrderId()
+		{
+			using (var context = new Context())
+			{
+				var maxOrderId = context.Orders.Select(o => o.OrderId).Max();
+				getNewOrderIdCount++;
+				return (long.Parse(maxOrderId) + getNewOrderIdCount).ToString("00000000");
 			}
 		}
 	}
