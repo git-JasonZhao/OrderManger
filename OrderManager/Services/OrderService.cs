@@ -14,7 +14,7 @@ namespace OrderManager.Services
 		{
 			using (var context = new Context())
 			{
-				return context.Orders.Include("Customer").OrderByDescending(o => o.OrderTime).ToList();
+				return context.Orders.OrderByDescending(o => o.OrderTime).ToList();
 			}
 		}
 
@@ -22,7 +22,7 @@ namespace OrderManager.Services
 		{
 			using (var context = new Context())
 			{
-				return context.Orders.Include("Customer").Include("OrderProducts.Product").Where(o => o.OrderId == orderId).FirstOrDefault();
+				return context.Orders.Include("OrderProducts").Where(o => o.OrderId == orderId).FirstOrDefault();
 			}
 		}
 
@@ -40,6 +40,10 @@ namespace OrderManager.Services
 			using (var context = new Context())
 			{
 				var maxOrderId = context.Orders.Select(o => o.OrderId).Max();
+				if (string.IsNullOrWhiteSpace(maxOrderId))
+				{
+					maxOrderId = "0";
+				}
 				getNewOrderIdCount++;
 				return (long.Parse(maxOrderId) + getNewOrderIdCount).ToString("00000000");
 			}

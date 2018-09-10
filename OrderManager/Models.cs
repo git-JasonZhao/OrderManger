@@ -99,16 +99,26 @@ namespace OrderManager.Models
 		[Key]
 		public string OrderId { get; set; }
 
-		/// <summary>
-		/// 客户编码
-		/// </summary>
-		public string CustomerId { get; set; }
+		///// <summary>
+		///// 客户编码
+		///// </summary>
+		//public string CustomerId { get; set; }
+
+		///// <summary>
+		///// 客户
+		///// </summary>
+		//[ForeignKey("CustomerId")]
+		//public Customer Customer { get; set; }
 
 		/// <summary>
-		/// 客户
+		/// 客户姓名
 		/// </summary>
-		[ForeignKey("CustomerId")]
-		public Customer Customer { get; set; }
+		public string CustomerName { get; set; }
+
+		/// <summary>
+		/// 客户电话
+		/// </summary>
+		public string Telephone { get; set; }
 
 		/// <summary>
 		/// 订单总金额
@@ -142,7 +152,7 @@ namespace OrderManager.Models
 		/// <summary>
 		/// 序号
 		/// </summary>
-		public int SeqNo { get; set; }
+		public int? SeqNo { get; set; }
 
 		/// <summary>
 		/// 订单编码
@@ -155,40 +165,31 @@ namespace OrderManager.Models
 		[ForeignKey("OrderId")]
 		public Order Order { get; set; }
 
-		/// <summary>
-		/// 产品编码
-		/// </summary>
-		public string ProductId { get; set; }
+		///// <summary>
+		///// 产品编码
+		///// </summary>
+		//public string ProductId { get; set; }
 
-		/// <summary>
-		/// 产品
-		/// </summary>
-		[ForeignKey("ProductId")]
-		public Product Product { get; set; }
+		///// <summary>
+		///// 产品
+		///// </summary>
+		//[ForeignKey("ProductId")]
+		//public Product Product { get; set; }
 
 		/// <summary>
 		/// 产品名称
 		/// </summary>
-		public string ProductName
-		{
-			get { return Product == null ? null : Product.ProductName; }
-		}
+		public string ProductName { get; set; }
 
 		/// <summary>
 		/// 产品型号
 		/// </summary>
-		public string ProductModel
-		{
-			get { return Product == null ? null : Product.Model; }
-		}
+		public string ProductModel { get; set; }
 
 		/// <summary>
 		/// 产品单位
 		/// </summary>
-		public string ProductUnit
-		{
-			get { return Product == null ? null : Product.Unit; }
-		}
+		public string ProductUnit { get; set; }
 
 		/// <summary>
 		/// 数量

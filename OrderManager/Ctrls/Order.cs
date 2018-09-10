@@ -14,6 +14,8 @@ namespace OrderManager.Ctrls
 {
 	public partial class Order : UserControl
 	{
+		private Models.Order dataOrder;
+
 		public Order()
 		{
 			InitializeComponent();
@@ -22,14 +24,22 @@ namespace OrderManager.Ctrls
 
 		public void Init(Models.Order order = null)
 		{
-			if (order == null) { order = new Models.Order(); }
+			if (order == null)
+			{
+				order = new OrderService().NewOrder();
+			}
 			this.lbl_OrderNo.Text = order.OrderId;
-			this.txt_CustomerName.Text = order.Customer == null ? "" : order.Customer.CustomerName;
-			this.txt_Telephone.Text = order.Customer == null ? "" : order.Customer.Telephone;
+			this.txt_CustomerName.Text = order.CustomerName;
+			this.txt_Telephone.Text = order.Telephone;
 			this.txt_DeliveryDate.Text = string.Format("{0:yyyy-MM-dd}", order.DeliveryDate ?? DateTime.Now);
-			this.lbl_AmtFigures.Text = order.Amount == null ? "" : order.Amount.ToString();
-
-			this.dgv_OrderProd.DataSource = order.OrderProducts;
+			this.lbl_AmtFigures.Text = string.Format("￥{0:0.00}", order.Amount);
+			if (order.OrderProducts == null)
+			{
+				order.OrderProducts = new List<Models.OrderProduct>();
+			}
+			dataOrder = order;
+			var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts) { AllowNew = true, AllowEdit = true, AllowRemove = true };
+			this.dgv_OrderProd.DataSource = bindingList;
 		}
 
 		private void Order_Load(object sender, EventArgs e)
@@ -57,72 +67,69 @@ namespace OrderManager.Ctrls
 
 		private void dgv_OrderProd_RowValidated(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex != this.dgv_OrderProd.Rows.Count - 1)
+			if (e.RowIndex == this.dgv_OrderProd.Rows.Count - 1) { return; }
+			DataGridViewRow row = this.dgv_OrderProd.Rows[e.RowIndex];
+			Models.OrderProduct orderProduct = dataOrder.OrderProducts[e.RowIndex];
+			if (string.IsNullOrWhiteSpace(orderProduct.OrderProductId))
 			{
-				this.dgv_OrderProd.Rows[e.RowIndex].Cells["SeqNo"].Value = e.RowIndex + 1;
-				decimal qty = 0, price = 0;
-				if (this.dgv_OrderProd.Rows[e.RowIndex].Cells["Qty"].Value != null)
-				{
-					decimal.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Qty"].Value.ToString(), out qty);
-				}
-				if (this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value != null)
-				{
-					decimal.TryParse(this.dgv_OrderProd.Rows[e.RowIndex].Cells["Price"].Value.ToString(), out price);
-				}
-				this.dgv_OrderProd.Rows[e.RowIndex].Cells["Amt"].Value = qty * price;
-				SumAmt();
+				orderProduct.OrderProductId = new OrderProductService().GetNewOrderProductId();
 			}
+			orderProduct.OrderId = dataOrder.OrderId;
+			orderProduct.SeqNo = e.RowIndex + 1;
+			orderProduct.ProductName = row.Cells["ProductName"] == null || row.Cells["ProductName"].Value == null ? "" : row.Cells["ProductName"].Value.ToString();
+			orderProduct.ProductModel = row.Cells["ProductModel"] == null || row.Cells["ProductModel"].Value == null ? "" : row.Cells["ProductModel"].Value.ToString();
+			orderProduct.ProductUnit = row.Cells["ProductUnit"] == null || row.Cells["ProductUnit"].Value == null ? "" : row.Cells["ProductUnit"].Value.ToString();
+			decimal qty = 0, price = 0;
+			if (row.Cells["Qty"].Value != null)
+			{
+				decimal.TryParse(row.Cells["Qty"].Value.ToString(), out qty);
+			}
+			if (row.Cells["Price"].Value != null)
+			{
+				decimal.TryParse(row.Cells["Price"].Value.ToString(), out price);
+			}
+			orderProduct.Qty = qty;
+			orderProduct.Price = price;
+			orderProduct.Amt = qty * price;
+			orderProduct.Remark = row.Cells["Remark"] == null || row.Cells["Remark"].Value == null ? "" : row.Cells["Remark"].Value.ToString();
+			SumAmt();
+
+			this.dgv_OrderProd.Refresh();
+			//var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts.ToArray()) { AllowNew = true, AllowEdit = true, AllowRemove = true };
+			//this.dgv_OrderProd.DataSource = bindingList;
 		}
 
 		private void dgv_OrderProd_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
 		{
+			if (dataOrder.OrderProducts == null || dataOrder.OrderProducts.Count < e.RowIndex + 1) { return; }
+			dataOrder.OrderProducts.RemoveAt(e.RowIndex);
 			for (int i = 0; i < this.dgv_OrderProd.Rows.Count - 1; i++)
 			{
-				this.dgv_OrderProd.Rows[i].Cells["SeqNo"].Value = i + 1;
+				dataOrder.OrderProducts[i].SeqNo = i + 1;
 			}
+			SumAmt();
+
+			var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts.ToArray()) { AllowNew = true, AllowEdit = true, AllowRemove = true };
+			this.dgv_OrderProd.DataSource = bindingList;
 		}
 
 		private void SumAmt()
 		{
-			float amtTotal = 0, amt = 0;
-			foreach (DataGridViewRow row in this.dgv_OrderProd.Rows)
-			{
-				if (row.Cells["Amt"].Value != null)
-				{
-					float.TryParse(row.Cells["Amt"].Value.ToString(), out amt);
-					amtTotal += amt;
-				}
-			}
+			var amtTotal = dataOrder.OrderProducts.Sum(op => op.Amt);
 			this.lbl_AmtWords.Text = Lib.AmtHelper.ToCHAmt(amtTotal);
 			this.lbl_AmtFigures.Text = string.Format("￥{0:0.00}", amtTotal);
 		}
 
 		private void btn_Save_Click(object sender, EventArgs e)
 		{
-			var orderService = new OrderService();
-			var orderprodService = new OrderProductService();
-
-			var order = orderService.NewOrder();
-			order.CustomerId = "C001";
-			order.Amount = string.IsNullOrWhiteSpace(this.lbl_AmtFigures.Text) ? 0 : decimal.Parse(this.lbl_AmtFigures.Text.Substring(1));
-			order.DeliveryDate = DateTime.Now;
-			order.OrderTime = DateTime.Now;
-			order.OrderProducts = new List<Models.OrderProduct>();
-			foreach (DataGridViewRow row in this.dgv_OrderProd.Rows)
-			{
-				var orderprod = orderprodService.NewOrderProduct();
-				orderprod.SeqNo = row.Cells["SeqNo"] == null || row.Cells["SeqNo"].Value == null ? 0 : int.Parse(row.Cells["SeqNo"].Value.ToString());
-				orderprod.OrderId = order.OrderId;
-				orderprod.ProductId = "P001";
-				orderprod.Qty = row.Cells["Qty"] == null || row.Cells["Qty"].Value == null ? 0 : decimal.Parse(row.Cells["Qty"].Value.ToString());
-				orderprod.Price = row.Cells["Price"] == null || row.Cells["Price"].Value == null ? 0 : decimal.Parse(row.Cells["Price"].Value.ToString());
-				orderprod.Amt = row.Cells["Amt"] == null || row.Cells["Amt"].Value == null ? 0 : decimal.Parse(row.Cells["Amt"].Value.ToString());
-				orderprod.Remark = row.Cells["Remark"] == null || row.Cells["Remark"].Value == null ? "" : row.Cells["Remark"].Value.ToString();
-				order.OrderProducts.Add(orderprod);
-			}
+			dataOrder.CustomerName = this.txt_CustomerName.Text.Trim();
+			dataOrder.Telephone = this.txt_Telephone.Text.Trim();
+			dataOrder.Amount = string.IsNullOrWhiteSpace(this.lbl_AmtFigures.Text) ? 0 : decimal.Parse(this.lbl_AmtFigures.Text.Substring(1));
+			dataOrder.DeliveryDate = DateTime.Now;
+			dataOrder.OrderTime = DateTime.Now;
 			using (var context = new Context())
 			{
-				context.Orders.Add(order);
+				context.Orders.Add(dataOrder);
 				context.SaveChanges();
 				MessageBox.Show("保存成功。");
 			}

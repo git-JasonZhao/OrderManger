@@ -44,6 +44,7 @@
 			this.lbl_AmtFigures = new System.Windows.Forms.Label();
 			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
 			this.lbl_OrderNo = new System.Windows.Forms.Label();
+			this.OrderProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ProductModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,6 +71,7 @@
 			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.dgv_OrderProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_OrderProd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.OrderProductId,
             this.SeqNo,
             this.ProductName,
             this.ProductModel,
@@ -213,6 +215,14 @@
 			this.lbl_OrderNo.Size = new System.Drawing.Size(0, 12);
 			this.lbl_OrderNo.TabIndex = 14;
 			// 
+			// OrderProductId
+			// 
+			this.OrderProductId.DataPropertyName = "OrderProductId";
+			this.OrderProductId.HeaderText = "OrderProductId";
+			this.OrderProductId.Name = "OrderProductId";
+			this.OrderProductId.ReadOnly = true;
+			this.OrderProductId.Visible = false;
+			// 
 			// SeqNo
 			// 
 			this.SeqNo.DataPropertyName = "SeqNo";
@@ -310,6 +320,8 @@
 		private System.Windows.Forms.Label lbl_AmtFigures;
 		private System.Windows.Forms.Label lbl_TextOrderNo;
 		private System.Windows.Forms.Label lbl_OrderNo;
+		private System.Windows.Forms.DataGridView dgv_OrderProd;
+		private System.Windows.Forms.DataGridViewTextBoxColumn OrderProductId;
 		private System.Windows.Forms.DataGridViewTextBoxColumn SeqNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ProductModel;
@@ -318,6 +330,5 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Price;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Amt;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Remark;
-		private System.Windows.Forms.DataGridView dgv_OrderProd;
 	}
 }

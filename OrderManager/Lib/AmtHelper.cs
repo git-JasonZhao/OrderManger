@@ -71,7 +71,7 @@ namespace OrderManager.Lib
 		/// <returns></returns>
 		public static string ToCHAmt(int amt)
 		{
-			return ToCHAmt(amt.ToString());
+			return ToCHAmt(amt.ToString("0.00"));
 		}
 
 		/// <summary>
@@ -81,7 +81,7 @@ namespace OrderManager.Lib
 		/// <returns></returns>
 		public static string ToCHAmt(float amt)
 		{
-			return ToCHAmt(amt.ToString());
+			return ToCHAmt(amt.ToString("0.00"));
 		}
 
 		/// <summary>
@@ -91,7 +91,7 @@ namespace OrderManager.Lib
 		/// <returns></returns>
 		public static string ToCHAmt(double amt)
 		{
-			return ToCHAmt(amt.ToString());
+			return ToCHAmt(amt.ToString("0.00"));
 		}
 
 		/// <summary>
@@ -101,7 +101,7 @@ namespace OrderManager.Lib
 		/// <returns></returns>
 		public static string ToCHAmt(decimal amt)
 		{
-			return ToCHAmt(amt.ToString());
+			return ToCHAmt(amt.ToString("0.00"));
 		}
 	}
 }
