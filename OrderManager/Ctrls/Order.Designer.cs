@@ -44,15 +44,15 @@
 			this.lbl_AmtFigures = new System.Windows.Forms.Label();
 			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
 			this.lbl_OrderNo = new System.Windows.Forms.Label();
-			this.OrderProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProductModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProductUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.OrderProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -215,13 +215,51 @@
 			this.lbl_OrderNo.Size = new System.Drawing.Size(0, 12);
 			this.lbl_OrderNo.TabIndex = 14;
 			// 
-			// OrderProductId
+			// Remark
 			// 
-			this.OrderProductId.DataPropertyName = "OrderProductId";
-			this.OrderProductId.HeaderText = "OrderProductId";
-			this.OrderProductId.Name = "OrderProductId";
-			this.OrderProductId.ReadOnly = true;
-			this.OrderProductId.Visible = false;
+			this.Remark.DataPropertyName = "Remark";
+			this.Remark.HeaderText = "备注";
+			this.Remark.Name = "Remark";
+			this.Remark.Width = 150;
+			// 
+			// Amt
+			// 
+			this.Amt.DataPropertyName = "Amt";
+			this.Amt.HeaderText = "金额";
+			this.Amt.Name = "Amt";
+			this.Amt.ReadOnly = true;
+			// 
+			// Price
+			// 
+			this.Price.DataPropertyName = "Price";
+			this.Price.HeaderText = "单价";
+			this.Price.Name = "Price";
+			// 
+			// Qty
+			// 
+			this.Qty.DataPropertyName = "Qty";
+			this.Qty.HeaderText = "数量";
+			this.Qty.Name = "Qty";
+			// 
+			// ProductUnit
+			// 
+			this.ProductUnit.DataPropertyName = "ProductUnit";
+			this.ProductUnit.HeaderText = "单位";
+			this.ProductUnit.Name = "ProductUnit";
+			// 
+			// ProductModel
+			// 
+			this.ProductModel.DataPropertyName = "ProductModel";
+			this.ProductModel.HeaderText = "型号";
+			this.ProductModel.Name = "ProductModel";
+			this.ProductModel.Width = 150;
+			// 
+			// ProductName
+			// 
+			this.ProductName.DataPropertyName = "ProductName";
+			this.ProductName.HeaderText = "产品名称";
+			this.ProductName.Name = "ProductName";
+			this.ProductName.Width = 150;
 			// 
 			// SeqNo
 			// 
@@ -231,51 +269,13 @@
 			this.SeqNo.ReadOnly = true;
 			this.SeqNo.Width = 60;
 			// 
-			// ProductName
+			// OrderProductId
 			// 
-			this.ProductName.DataPropertyName = "ProductName";
-			this.ProductName.HeaderText = "产品名称";
-			this.ProductName.Name = "ProductName";
-			this.ProductName.Width = 150;
-			// 
-			// ProductModel
-			// 
-			this.ProductModel.DataPropertyName = "ProductModel";
-			this.ProductModel.HeaderText = "型号";
-			this.ProductModel.Name = "ProductModel";
-			this.ProductModel.Width = 150;
-			// 
-			// ProductUnit
-			// 
-			this.ProductUnit.DataPropertyName = "ProductUnit";
-			this.ProductUnit.HeaderText = "单位";
-			this.ProductUnit.Name = "ProductUnit";
-			// 
-			// Qty
-			// 
-			this.Qty.DataPropertyName = "Qty";
-			this.Qty.HeaderText = "数量";
-			this.Qty.Name = "Qty";
-			// 
-			// Price
-			// 
-			this.Price.DataPropertyName = "Price";
-			this.Price.HeaderText = "单价";
-			this.Price.Name = "Price";
-			// 
-			// Amt
-			// 
-			this.Amt.DataPropertyName = "Amt";
-			this.Amt.HeaderText = "金额";
-			this.Amt.Name = "Amt";
-			this.Amt.ReadOnly = true;
-			// 
-			// Remark
-			// 
-			this.Remark.DataPropertyName = "Remark";
-			this.Remark.HeaderText = "备注";
-			this.Remark.Name = "Remark";
-			this.Remark.Width = 150;
+			this.OrderProductId.DataPropertyName = "OrderProductId";
+			this.OrderProductId.HeaderText = "OrderProductId";
+			this.OrderProductId.Name = "OrderProductId";
+			this.OrderProductId.ReadOnly = true;
+			this.OrderProductId.Visible = false;
 			// 
 			// Order
 			// 

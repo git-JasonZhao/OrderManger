@@ -95,8 +95,6 @@ namespace OrderManager.Ctrls
 			SumAmt();
 
 			this.dgv_OrderProd.Refresh();
-			//var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts.ToArray()) { AllowNew = true, AllowEdit = true, AllowRemove = true };
-			//this.dgv_OrderProd.DataSource = bindingList;
 		}
 
 		private void dgv_OrderProd_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -109,8 +107,7 @@ namespace OrderManager.Ctrls
 			}
 			SumAmt();
 
-			var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts.ToArray()) { AllowNew = true, AllowEdit = true, AllowRemove = true };
-			this.dgv_OrderProd.DataSource = bindingList;
+			this.dgv_OrderProd.Refresh();
 		}
 
 		private void SumAmt()
@@ -125,7 +122,7 @@ namespace OrderManager.Ctrls
 			dataOrder.CustomerName = this.txt_CustomerName.Text.Trim();
 			dataOrder.Telephone = this.txt_Telephone.Text.Trim();
 			dataOrder.Amount = string.IsNullOrWhiteSpace(this.lbl_AmtFigures.Text) ? 0 : decimal.Parse(this.lbl_AmtFigures.Text.Substring(1));
-			dataOrder.DeliveryDate = DateTime.Now;
+			dataOrder.DeliveryDate = DateTime.Today;
 			dataOrder.OrderTime = DateTime.Now;
 			using (var context = new Context())
 			{
