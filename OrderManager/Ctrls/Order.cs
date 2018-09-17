@@ -15,6 +15,7 @@ namespace OrderManager.Ctrls
 	public partial class Order : UserControl
 	{
 		private Models.Order dataOrder;
+		private bool IsNew = false;
 
 		public Order()
 		{
@@ -24,22 +25,26 @@ namespace OrderManager.Ctrls
 
 		public void Init(Models.Order order = null)
 		{
+			IsNew = false;
 			if (order == null)
 			{
 				order = new OrderService().NewOrder();
+				IsNew = true;
+			}
+			if (order.OrderProducts == null)
+			{
+				order.OrderProducts = new List<Models.OrderProduct>();
 			}
 			this.lbl_OrderNo.Text = order.OrderId;
 			this.txt_CustomerName.Text = order.CustomerName;
 			this.txt_Telephone.Text = order.Telephone;
 			this.txt_DeliveryDate.Text = string.Format("{0:yyyy-MM-dd}", order.DeliveryDate ?? DateTime.Now);
 			this.lbl_AmtFigures.Text = string.Format("￥{0:0.00}", order.Amount);
-			if (order.OrderProducts == null)
-			{
-				order.OrderProducts = new List<Models.OrderProduct>();
-			}
+
 			dataOrder = order;
 			var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts) { AllowNew = true, AllowEdit = true, AllowRemove = true };
 			this.dgv_OrderProd.DataSource = bindingList;
+			this.dgv_OrderProd.Refresh();
 		}
 
 		private void Order_Load(object sender, EventArgs e)
@@ -67,7 +72,10 @@ namespace OrderManager.Ctrls
 
 		private void dgv_OrderProd_RowValidated(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex == this.dgv_OrderProd.Rows.Count - 1) { return; }
+			if (dataOrder.OrderProducts == null
+				|| dataOrder.OrderProducts.Count != this.dgv_OrderProd.Rows.Count - 1
+				|| this.dgv_OrderProd.Rows.Count == e.RowIndex + 1)
+			{ return; }
 			DataGridViewRow row = this.dgv_OrderProd.Rows[e.RowIndex];
 			Models.OrderProduct orderProduct = dataOrder.OrderProducts[e.RowIndex];
 			if (string.IsNullOrWhiteSpace(orderProduct.OrderProductId))
@@ -99,7 +107,11 @@ namespace OrderManager.Ctrls
 
 		private void dgv_OrderProd_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
 		{
-			if (dataOrder.OrderProducts == null || dataOrder.OrderProducts.Count < e.RowIndex + 1) { return; }
+			if (dataOrder.OrderProducts == null
+				|| dataOrder.OrderProducts.Count == 0
+				|| dataOrder.OrderProducts.Count != this.dgv_OrderProd.Rows.Count - 1
+				|| dataOrder.OrderProducts.Count < e.RowIndex + 1)
+			{ return; }
 			dataOrder.OrderProducts.RemoveAt(e.RowIndex);
 			for (int i = 0; i < this.dgv_OrderProd.Rows.Count - 1; i++)
 			{
@@ -124,12 +136,12 @@ namespace OrderManager.Ctrls
 			dataOrder.Amount = string.IsNullOrWhiteSpace(this.lbl_AmtFigures.Text) ? 0 : decimal.Parse(this.lbl_AmtFigures.Text.Substring(1));
 			dataOrder.DeliveryDate = DateTime.Today;
 			dataOrder.OrderTime = DateTime.Now;
-			using (var context = new Context())
+			if (IsNew)
 			{
-				context.Orders.Add(dataOrder);
-				context.SaveChanges();
-				MessageBox.Show("保存成功。");
+				Context.DefaultContext.Orders.Add(dataOrder);
 			}
+			Context.DefaultContext.SaveChanges();
+			MessageBox.Show("保存成功。");
 		}
 	}
 }

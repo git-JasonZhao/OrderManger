@@ -44,6 +44,8 @@ namespace OrderManager.Ctrls
 		{
 			var orderService = new OrderService();
 			dataOrders = orderService.GetOrders();
+			var bindingList = new BindingList<Models.Order>(dataOrders);
+			this.dgv_Order.DataSource = bindingList;
 			this.dgv_Order.Refresh();
 		}
 
@@ -61,6 +63,18 @@ namespace OrderManager.Ctrls
 					context.SaveChanges();
 					MessageBox.Show("保存成功。");
 				}
+			}
+		}
+
+		private void dgv_Order_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+			switch (this.dgv_Order.Columns[e.ColumnIndex].Name)
+			{
+				case "ViewDetail":
+					ctrl_Order.Init(new OrderService().GetOrder(dataOrders[e.RowIndex].OrderId));
+					ctrl_Order.Refresh();
+					OrderForm.ShowDialog();
+					break;
 			}
 		}
 	}

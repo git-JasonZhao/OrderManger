@@ -10,10 +10,7 @@ namespace OrderManager.Services
 	{
 		public List<Models.OrderProduct> GetOrderProducts(string orderId)
 		{
-			using (var context = new Context())
-			{
-				return context.OrderProducts.Include("Product").Where(op => op.OrderId == orderId).OrderBy(op => op.SeqNo).ToList();
-			}
+			return Context.DefaultContext.OrderProducts.Include("Product").Where(op => op.OrderId == orderId).OrderBy(op => op.SeqNo).ToList();
 		}
 
 		public Models.OrderProduct NewOrderProduct()

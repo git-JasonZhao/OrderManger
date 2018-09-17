@@ -12,18 +12,12 @@ namespace OrderManager.Services
 
 		public List<Models.Order> GetOrders()
 		{
-			using (var context = new Context())
-			{
-				return context.Orders.OrderByDescending(o => o.OrderTime).ToList();
-			}
+			return Context.DefaultContext.Orders.OrderByDescending(o => o.OrderTime).ToList();
 		}
 
 		public Models.Order GetOrder(string orderId)
 		{
-			using (var context = new Context())
-			{
-				return context.Orders.Include("OrderProducts").Where(o => o.OrderId == orderId).FirstOrDefault();
-			}
+			return Context.DefaultContext.Orders.Include("OrderProducts").Where(o => o.OrderId == orderId).FirstOrDefault();
 		}
 
 		public Models.Order NewOrder()
@@ -37,16 +31,13 @@ namespace OrderManager.Services
 
 		public string GetNewOrderId()
 		{
-			using (var context = new Context())
+			var maxOrderId = Context.DefaultContext.Orders.Select(o => o.OrderId).Max();
+			if (string.IsNullOrWhiteSpace(maxOrderId))
 			{
-				var maxOrderId = context.Orders.Select(o => o.OrderId).Max();
-				if (string.IsNullOrWhiteSpace(maxOrderId))
-				{
-					maxOrderId = "0";
-				}
-				getNewOrderIdCount++;
-				return (long.Parse(maxOrderId) + getNewOrderIdCount).ToString("00000000");
+				maxOrderId = "0";
 			}
+			getNewOrderIdCount++;
+			return (long.Parse(maxOrderId) + getNewOrderIdCount).ToString("00000000");
 		}
 	}
 }

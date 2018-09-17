@@ -9,7 +9,18 @@ namespace OrderManager
 {
 	public class Context : DbContext
 	{
+		private static Context context;
+
 		public Context() : base("OrderMangerDB") { }
+
+		public static Context DefaultContext
+		{
+			get
+			{
+				if (context == null) { context = new Context(); }
+				return context;
+			}
+		}
 
 		public DbSet<Models.Customer> Customers { get; set; }
 

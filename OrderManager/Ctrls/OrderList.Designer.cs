@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.btn_New = new System.Windows.Forms.Button();
 			this.btn_Delete = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
 			this.Telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DeliveryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ViewDetail = new System.Windows.Forms.DataGridViewLinkColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_Order)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -70,27 +72,29 @@
 			this.dgv_Order.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F);
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgv_Order.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F);
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgv_Order.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.dgv_Order.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_Order.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OrderId,
             this.CustomerName,
             this.Telephone,
             this.Amount,
-            this.DeliveryDate});
+            this.DeliveryDate,
+            this.ViewDetail});
 			this.dgv_Order.Location = new System.Drawing.Point(0, 36);
 			this.dgv_Order.Name = "dgv_Order";
 			this.dgv_Order.ReadOnly = true;
 			this.dgv_Order.RowTemplate.Height = 23;
 			this.dgv_Order.Size = new System.Drawing.Size(1000, 467);
 			this.dgv_Order.TabIndex = 15;
+			this.dgv_Order.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Order_CellContentClick);
 			// 
 			// btn_Refresh
 			// 
@@ -140,6 +144,17 @@
 			this.DeliveryDate.ReadOnly = true;
 			this.DeliveryDate.Width = 78;
 			// 
+			// ViewDetail
+			// 
+			dataGridViewCellStyle2.NullValue = "查看";
+			this.ViewDetail.DefaultCellStyle = dataGridViewCellStyle2;
+			this.ViewDetail.HeaderText = "查看";
+			this.ViewDetail.Name = "ViewDetail";
+			this.ViewDetail.ReadOnly = true;
+			this.ViewDetail.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.ViewDetail.Text = "查看";
+			this.ViewDetail.VisitedLinkColor = System.Drawing.Color.Blue;
+			// 
 			// OrderList
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -167,5 +182,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Telephone;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryDate;
+		private System.Windows.Forms.DataGridViewLinkColumn ViewDetail;
 	}
 }

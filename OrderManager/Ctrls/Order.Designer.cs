@@ -30,6 +30,15 @@
 		{
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.dgv_OrderProd = new System.Windows.Forms.DataGridView();
+			this.OrderProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ProductUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.lbl_CustomerName = new System.Windows.Forms.Label();
 			this.txt_CustomerName = new System.Windows.Forms.TextBox();
 			this.txt_Telephone = new System.Windows.Forms.TextBox();
@@ -44,15 +53,6 @@
 			this.lbl_AmtFigures = new System.Windows.Forms.Label();
 			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
 			this.lbl_OrderNo = new System.Windows.Forms.Label();
-			this.Remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Amt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProductUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProductModel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.OrderProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -88,6 +88,68 @@
 			this.dgv_OrderProd.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgv_OrderProd_RowsRemoved);
 			this.dgv_OrderProd.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_OrderProd_RowValidated);
 			// 
+			// OrderProductId
+			// 
+			this.OrderProductId.DataPropertyName = "OrderProductId";
+			this.OrderProductId.HeaderText = "OrderProductId";
+			this.OrderProductId.Name = "OrderProductId";
+			this.OrderProductId.ReadOnly = true;
+			this.OrderProductId.Visible = false;
+			// 
+			// SeqNo
+			// 
+			this.SeqNo.DataPropertyName = "SeqNo";
+			this.SeqNo.HeaderText = "序号";
+			this.SeqNo.Name = "SeqNo";
+			this.SeqNo.ReadOnly = true;
+			this.SeqNo.Width = 60;
+			// 
+			// ProductName
+			// 
+			this.ProductName.DataPropertyName = "ProductName";
+			this.ProductName.HeaderText = "产品名称";
+			this.ProductName.Name = "ProductName";
+			this.ProductName.Width = 150;
+			// 
+			// ProductModel
+			// 
+			this.ProductModel.DataPropertyName = "ProductModel";
+			this.ProductModel.HeaderText = "型号";
+			this.ProductModel.Name = "ProductModel";
+			this.ProductModel.Width = 150;
+			// 
+			// ProductUnit
+			// 
+			this.ProductUnit.DataPropertyName = "ProductUnit";
+			this.ProductUnit.HeaderText = "单位";
+			this.ProductUnit.Name = "ProductUnit";
+			// 
+			// Qty
+			// 
+			this.Qty.DataPropertyName = "Qty";
+			this.Qty.HeaderText = "数量";
+			this.Qty.Name = "Qty";
+			// 
+			// Price
+			// 
+			this.Price.DataPropertyName = "Price";
+			this.Price.HeaderText = "单价";
+			this.Price.Name = "Price";
+			// 
+			// Amt
+			// 
+			this.Amt.DataPropertyName = "Amt";
+			this.Amt.HeaderText = "金额";
+			this.Amt.Name = "Amt";
+			this.Amt.ReadOnly = true;
+			// 
+			// Remark
+			// 
+			this.Remark.DataPropertyName = "Remark";
+			this.Remark.HeaderText = "备注";
+			this.Remark.Name = "Remark";
+			this.Remark.Width = 150;
+			// 
 			// lbl_CustomerName
 			// 
 			this.lbl_CustomerName.AutoSize = true;
@@ -103,7 +165,6 @@
 			this.txt_CustomerName.Name = "txt_CustomerName";
 			this.txt_CustomerName.Size = new System.Drawing.Size(100, 21);
 			this.txt_CustomerName.TabIndex = 2;
-			this.txt_CustomerName.Text = "假客户";
 			// 
 			// txt_Telephone
 			// 
@@ -111,7 +172,6 @@
 			this.txt_Telephone.Name = "txt_Telephone";
 			this.txt_Telephone.Size = new System.Drawing.Size(100, 21);
 			this.txt_Telephone.TabIndex = 4;
-			this.txt_Telephone.Text = "假电话";
 			// 
 			// lbl_Telephone
 			// 
@@ -214,68 +274,6 @@
 			this.lbl_OrderNo.Name = "lbl_OrderNo";
 			this.lbl_OrderNo.Size = new System.Drawing.Size(0, 12);
 			this.lbl_OrderNo.TabIndex = 14;
-			// 
-			// Remark
-			// 
-			this.Remark.DataPropertyName = "Remark";
-			this.Remark.HeaderText = "备注";
-			this.Remark.Name = "Remark";
-			this.Remark.Width = 150;
-			// 
-			// Amt
-			// 
-			this.Amt.DataPropertyName = "Amt";
-			this.Amt.HeaderText = "金额";
-			this.Amt.Name = "Amt";
-			this.Amt.ReadOnly = true;
-			// 
-			// Price
-			// 
-			this.Price.DataPropertyName = "Price";
-			this.Price.HeaderText = "单价";
-			this.Price.Name = "Price";
-			// 
-			// Qty
-			// 
-			this.Qty.DataPropertyName = "Qty";
-			this.Qty.HeaderText = "数量";
-			this.Qty.Name = "Qty";
-			// 
-			// ProductUnit
-			// 
-			this.ProductUnit.DataPropertyName = "ProductUnit";
-			this.ProductUnit.HeaderText = "单位";
-			this.ProductUnit.Name = "ProductUnit";
-			// 
-			// ProductModel
-			// 
-			this.ProductModel.DataPropertyName = "ProductModel";
-			this.ProductModel.HeaderText = "型号";
-			this.ProductModel.Name = "ProductModel";
-			this.ProductModel.Width = 150;
-			// 
-			// ProductName
-			// 
-			this.ProductName.DataPropertyName = "ProductName";
-			this.ProductName.HeaderText = "产品名称";
-			this.ProductName.Name = "ProductName";
-			this.ProductName.Width = 150;
-			// 
-			// SeqNo
-			// 
-			this.SeqNo.DataPropertyName = "SeqNo";
-			this.SeqNo.HeaderText = "序号";
-			this.SeqNo.Name = "SeqNo";
-			this.SeqNo.ReadOnly = true;
-			this.SeqNo.Width = 60;
-			// 
-			// OrderProductId
-			// 
-			this.OrderProductId.DataPropertyName = "OrderProductId";
-			this.OrderProductId.HeaderText = "OrderProductId";
-			this.OrderProductId.Name = "OrderProductId";
-			this.OrderProductId.ReadOnly = true;
-			this.OrderProductId.Visible = false;
 			// 
 			// Order
 			// 
