@@ -12,7 +12,7 @@ namespace OrderManager.Services
 
 		public List<Models.Order> GetOrders()
 		{
-			return Context.DefaultContext.Orders.OrderByDescending(o => o.OrderTime).ToList();
+			return Context.DefaultContext.Orders.OrderByDescending(o => o.OrderTime.Value).ToList();
 		}
 
 		public Models.Order GetOrder(string orderId)

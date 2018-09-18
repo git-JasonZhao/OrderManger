@@ -121,7 +121,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OrderManger.accdb">
+    <Content Include="App_Data\OrderManger.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

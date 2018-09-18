@@ -15,7 +15,6 @@ namespace OrderManager.Ctrls
 	public partial class Order : UserControl
 	{
 		private Models.Order dataOrder;
-		private bool IsNew = false;
 
 		public Order()
 		{
@@ -25,11 +24,9 @@ namespace OrderManager.Ctrls
 
 		public void Init(Models.Order order = null)
 		{
-			IsNew = false;
 			if (order == null)
 			{
 				order = new OrderService().NewOrder();
-				IsNew = true;
 			}
 			if (order.OrderProducts == null)
 			{
@@ -38,18 +35,13 @@ namespace OrderManager.Ctrls
 			this.lbl_OrderNo.Text = order.OrderId;
 			this.txt_CustomerName.Text = order.CustomerName;
 			this.txt_Telephone.Text = order.Telephone;
-			this.txt_DeliveryDate.Text = string.Format("{0:yyyy-MM-dd}", order.DeliveryDate ?? DateTime.Now);
+			this.dtp_DeliveryDate.Value = order.DeliveryDate ?? DateTime.Today;
 			this.lbl_AmtFigures.Text = string.Format("￥{0:0.00}", order.Amount);
 
 			dataOrder = order;
 			var bindingList = new BindingList<Models.OrderProduct>(dataOrder.OrderProducts) { AllowNew = true, AllowEdit = true, AllowRemove = true };
 			this.dgv_OrderProd.DataSource = bindingList;
 			this.dgv_OrderProd.Refresh();
-		}
-
-		private void Order_Load(object sender, EventArgs e)
-		{
-			this.txt_DeliveryDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
 		}
 
 		private void btn_Print_Click(object sender, EventArgs e)
@@ -64,7 +56,7 @@ namespace OrderManager.Ctrls
 			ph.OrderNo = this.lbl_OrderNo.Text.Trim();
 			ph.CustomerName = this.txt_CustomerName.Text.Trim();
 			ph.Telephone = this.txt_Telephone.Text.Trim();
-			ph.DeliveryDate = this.txt_DeliveryDate.Text.Trim();
+			ph.DeliveryDate = this.dtp_DeliveryDate.Text.Trim();
 			ph.AmtWords = this.lbl_AmtWords.Text;
 			ph.AmtFigures = this.lbl_AmtFigures.Text;
 			ph.Print(this.dgv_OrderProd);
@@ -134,10 +126,10 @@ namespace OrderManager.Ctrls
 			dataOrder.CustomerName = this.txt_CustomerName.Text.Trim();
 			dataOrder.Telephone = this.txt_Telephone.Text.Trim();
 			dataOrder.Amount = string.IsNullOrWhiteSpace(this.lbl_AmtFigures.Text) ? 0 : decimal.Parse(this.lbl_AmtFigures.Text.Substring(1));
-			dataOrder.DeliveryDate = DateTime.Today;
-			dataOrder.OrderTime = DateTime.Now;
-			if (IsNew)
+			dataOrder.DeliveryDate = this.dtp_DeliveryDate.Value;
+			if (dataOrder.OrderTime == null)
 			{
+				dataOrder.OrderTime = DateTime.Now;
 				Context.DefaultContext.Orders.Add(dataOrder);
 			}
 			Context.DefaultContext.SaveChanges();

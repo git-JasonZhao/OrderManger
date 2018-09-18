@@ -133,7 +133,7 @@ namespace OrderManager.Models
 		/// <summary>
 		/// 订单时间
 		/// </summary>
-		public DateTime OrderTime { get; set; }
+		public DateTime? OrderTime { get; set; }
 
 		public List<OrderProduct> OrderProducts { get; set; }
 	}

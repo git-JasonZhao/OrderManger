@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.dgv_OrderProd = new System.Windows.Forms.DataGridView();
 			this.OrderProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.SeqNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,7 +43,6 @@
 			this.txt_CustomerName = new System.Windows.Forms.TextBox();
 			this.txt_Telephone = new System.Windows.Forms.TextBox();
 			this.lbl_Telephone = new System.Windows.Forms.Label();
-			this.txt_DeliveryDate = new System.Windows.Forms.TextBox();
 			this.lbl_DeliveryDate = new System.Windows.Forms.Label();
 			this.btn_Print = new System.Windows.Forms.Button();
 			this.btn_Save = new System.Windows.Forms.Button();
@@ -53,6 +52,7 @@
 			this.lbl_AmtFigures = new System.Windows.Forms.Label();
 			this.lbl_TextOrderNo = new System.Windows.Forms.Label();
 			this.lbl_OrderNo = new System.Windows.Forms.Label();
+			this.dtp_DeliveryDate = new System.Windows.Forms.DateTimePicker();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -61,14 +61,14 @@
 			this.dgv_OrderProd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F);
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F);
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgv_OrderProd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this.dgv_OrderProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgv_OrderProd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OrderProductId,
@@ -182,13 +182,6 @@
 			this.lbl_Telephone.TabIndex = 3;
 			this.lbl_Telephone.Text = "电话：";
 			// 
-			// txt_DeliveryDate
-			// 
-			this.txt_DeliveryDate.Location = new System.Drawing.Point(404, 6);
-			this.txt_DeliveryDate.Name = "txt_DeliveryDate";
-			this.txt_DeliveryDate.Size = new System.Drawing.Size(100, 21);
-			this.txt_DeliveryDate.TabIndex = 6;
-			// 
 			// lbl_DeliveryDate
 			// 
 			this.lbl_DeliveryDate.AutoSize = true;
@@ -261,7 +254,7 @@
 			// lbl_TextOrderNo
 			// 
 			this.lbl_TextOrderNo.AutoSize = true;
-			this.lbl_TextOrderNo.Location = new System.Drawing.Point(510, 10);
+			this.lbl_TextOrderNo.Location = new System.Drawing.Point(530, 10);
 			this.lbl_TextOrderNo.Name = "lbl_TextOrderNo";
 			this.lbl_TextOrderNo.Size = new System.Drawing.Size(29, 12);
 			this.lbl_TextOrderNo.TabIndex = 13;
@@ -270,15 +263,25 @@
 			// lbl_OrderNo
 			// 
 			this.lbl_OrderNo.AutoSize = true;
-			this.lbl_OrderNo.Location = new System.Drawing.Point(545, 10);
+			this.lbl_OrderNo.Location = new System.Drawing.Point(565, 10);
 			this.lbl_OrderNo.Name = "lbl_OrderNo";
 			this.lbl_OrderNo.Size = new System.Drawing.Size(0, 12);
 			this.lbl_OrderNo.TabIndex = 14;
+			// 
+			// dtp_DeliveryDate
+			// 
+			this.dtp_DeliveryDate.CustomFormat = "yyyy-MM-dd";
+			this.dtp_DeliveryDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+			this.dtp_DeliveryDate.Location = new System.Drawing.Point(404, 6);
+			this.dtp_DeliveryDate.Name = "dtp_DeliveryDate";
+			this.dtp_DeliveryDate.Size = new System.Drawing.Size(120, 21);
+			this.dtp_DeliveryDate.TabIndex = 15;
 			// 
 			// Order
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.dtp_DeliveryDate);
 			this.Controls.Add(this.lbl_OrderNo);
 			this.Controls.Add(this.lbl_TextOrderNo);
 			this.Controls.Add(this.lbl_AmtFigures);
@@ -287,7 +290,6 @@
 			this.Controls.Add(this.lbl_TextAmtWords);
 			this.Controls.Add(this.btn_Save);
 			this.Controls.Add(this.btn_Print);
-			this.Controls.Add(this.txt_DeliveryDate);
 			this.Controls.Add(this.lbl_DeliveryDate);
 			this.Controls.Add(this.txt_Telephone);
 			this.Controls.Add(this.lbl_Telephone);
@@ -296,7 +298,6 @@
 			this.Controls.Add(this.dgv_OrderProd);
 			this.Name = "Order";
 			this.Size = new System.Drawing.Size(1000, 533);
-			this.Load += new System.EventHandler(this.Order_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dgv_OrderProd)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -308,7 +309,6 @@
 		private System.Windows.Forms.TextBox txt_CustomerName;
 		private System.Windows.Forms.TextBox txt_Telephone;
 		private System.Windows.Forms.Label lbl_Telephone;
-		private System.Windows.Forms.TextBox txt_DeliveryDate;
 		private System.Windows.Forms.Label lbl_DeliveryDate;
 		private System.Windows.Forms.Button btn_Print;
 		private System.Windows.Forms.Button btn_Save;
@@ -328,5 +328,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Price;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Amt;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Remark;
+		private System.Windows.Forms.DateTimePicker dtp_DeliveryDate;
 	}
 }
