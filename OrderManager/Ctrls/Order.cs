@@ -32,6 +32,7 @@ namespace OrderManager.Ctrls
 			{
 				order.OrderProducts = new List<Models.OrderProduct>();
 			}
+			order.OrderProducts = order.OrderProducts.OrderBy(p => p.SeqNo).ToList();
 			this.lbl_OrderNo.Text = order.OrderId;
 			this.txt_CustomerName.Text = order.CustomerName;
 			this.txt_Telephone.Text = order.Telephone;

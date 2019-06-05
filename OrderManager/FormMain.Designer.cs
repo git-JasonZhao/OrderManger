@@ -42,14 +42,14 @@
 			this.split_Layot.SplitterDistance = 750;
 			this.split_Layot.TabIndex = 0;
 			// 
-			// Form_Main
+			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1031, 590);
 			this.Controls.Add(this.split_Layot);
-			this.Name = "Form_Main";
-			this.Text = "發票打印";
+			this.Name = "FormMain";
+			this.Text = "发票打印";
 			this.Load += new System.EventHandler(this.FormMain_Load);
 			((System.ComponentModel.ISupportInitialize)(this.split_Layot)).EndInit();
 			this.split_Layot.ResumeLayout(false);
